@@ -111,7 +111,12 @@ const FlexCentered = styled(Flex)<DivProps>(
 );
 const FlexColumn = styled(Flex)<DivProps>(
   {
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+  },
+  divPropsSet,
+);
+const FlexColumnCentered = styled(FlexCentered)<DivProps>(
+  {
     flexDirection: 'column',
   },
   divPropsSet,
@@ -153,6 +158,7 @@ const Img = styled.img<ImgProps & any>(height, size, spaceSet, transition, width
 const Primary = styled(Span)<DivProps>(
   {
     color: th.colors.brand.primary,
+    fontWeight: th.fontWeights.semiBold,
   },
   divPropsSet,
 );
@@ -163,6 +169,7 @@ export default {
   FlexBetween,
   FlexCentered,
   FlexColumn,
+  FlexColumnCentered,
   Grid,
   Primary,
   Img,

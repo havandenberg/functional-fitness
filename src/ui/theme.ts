@@ -2,21 +2,19 @@ import './fonts.css';
 import { DESKTOP, SMALL, TABLET, TABLET_DOWN, TABLET_UP, TINY } from './utils';
 
 export const colors = {
-  background: '#FFFFFF',
-  black: '#000000',
-  gray: '#666666',
+  background: '#F6F6F6',
+  black: '#4A4A4A',
+  gray: '#979797',
   white: '#FFFFFF',
   brand: {
-    primary: '#0277BD',
-    secondary: '#FF6A00',
+    primary: '#6A92FF',
   },
   text: {
-    default: '#000000',
-    link: '#E7D25C',
+    default: '#4A4A4A',
+    link: '#6A92FF',
     inv: '#FFFFFF',
   },
   status: {
-    info: '#0277BD',
     success: '#00B67D',
     failure: '#D50000',
   },
@@ -65,21 +63,21 @@ export const widths = {
 
 // Typography
 export const fontFamilies = {
-  main: 'Main Font Family, system-ui, sans-serif',
+  main: 'Baloo, system-ui, sans-serif',
 };
 
 export const fontSizes = {
-  xs: '12px',
-  sm: '14px',
-  md: '16px',
-  lg: '18px',
-  h3: '20px',
-  h2: '24px',
-  h1: '28px',
+  sm: '10px',
+  nm: '16px',
+  lg: '20px',
+  h3: '24px',
+  h2: '30px',
+  h1: '36px',
 };
 
 export const fontWeights = {
-  normal: 400,
+  normal: 500,
+  semiBold: 600,
   bold: 700,
 };
 
@@ -89,11 +87,12 @@ export const lineHeights = { single: 1, heading: 1.25, main: 1.5 };
 export const borders = {
   black: `1px solid ${colors.black}`,
   error: `1px solid ${colors.status.failure}`,
+  input: `1px solid ${colors.gray}`,
   primary: `1px solid ${colors.brand.primary}`,
   transparent: '1px solid transparent',
 };
 
-export const borderRadii = { default: 5, input: 3 };
+export const borderRadii = { circle: '50%', default: 6, input: 2 };
 
 export const shadows = {};
 
@@ -145,15 +144,23 @@ export const scrollStyles = (showScrollBar: boolean) => ({
 export const textStyles = {
   h1: {
     fontSize: fontSizes.h1,
+    fontWeight: fontWeights.normal,
+    lineHeight: 1.2,
   },
   h2: {
     fontSize: fontSizes.h2,
+    fontWeight: fontWeights.normal,
+    lineHeight: 1.5,
   },
   h3: {
     fontSize: fontSizes.h3,
+    fontWeight: fontWeights.normal,
   },
   p: {
-    fontSize: fontSizes.md,
+    fontSize: fontSizes.nm,
+    fontWeight: fontWeights.normal,
+    lineHeight: 2,
+    // textAlign: 'justify',
   },
   caps: {
     textTransform: 'uppercase',
@@ -161,6 +168,7 @@ export const textStyles = {
   common: {
     color: colors.text.default,
     margin: 0,
+    padding: 0,
   },
 } as const;
 

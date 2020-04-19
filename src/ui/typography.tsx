@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import {
-  LayoutSetProps,
-  OpacityProps,
-  SpaceSetProps,
-  TextSetProps,
-  TransformSetProps,
-  TransitionProps,
   layoutSet,
+  LayoutSetProps,
   opacity,
+  OpacityProps,
   spaceSet,
+  SpaceSetProps,
   textSet,
+  TextSetProps,
   transformSet,
+  TransformSetProps,
   transition,
+  TransitionProps,
 } from 'onno-react';
 import { Link } from 'react-router-dom';
 import { divPropsSet } from './layout';
@@ -33,12 +33,7 @@ export type TextProps = SpaceSetProps &
   TransitionProps &
   CustomTextProps;
 
-const customOptions = ({
-  bold,
-  center,
-  italic,
-  nowrap,
-}: CustomTextProps): any => ({
+const customOptions = ({ bold, center, italic, nowrap }: CustomTextProps): any => ({
   fontStyle: italic ? 'italic' : undefined,
   fontWeight: bold ? 'bold' : undefined,
   textAlign: center ? 'center' : undefined,
@@ -68,19 +63,9 @@ const Text = ({
   type?: keyof typeof th.textStyles;
 } & TextProps &
   React.HTMLAttributes<HTMLParagraphElement>) => {
-  const fontSize =
-    size === 'large'
-      ? th.fontSizes.lg
-      : size === 'small'
-      ? th.fontSizes.sm
-      : undefined;
+  const fontSize = size === 'large' ? th.fontSizes.lg : size === 'small' ? th.fontSizes.sm : th.fontSizes.nm;
   return (
-    <StyledText
-      {...th.textStyles.common}
-      {...th.textStyles[type]}
-      fontSize={fontSize}
-      {...rest}
-    >
+    <StyledText {...th.textStyles.common} {...th.textStyles[type]} fontSize={fontSize} {...rest}>
       {children}
     </StyledText>
   );
@@ -89,6 +74,14 @@ const Text = ({
 const H1 = styled.h1<TextProps & any>(th.textStyles.h1, textPropsSet);
 const H2 = styled.h2<TextProps & any>(th.textStyles.h2, textPropsSet);
 const H3 = styled.h3<TextProps & any>(th.textStyles.h3, textPropsSet);
+
+const Label = styled(StyledText)<TextProps & any>(
+  {
+    fontSize: th.fontSizes.sm,
+    textTransform: 'uppercase',
+  },
+  textPropsSet,
+);
 
 export const TextLink = styled(Link)<TextProps & any>(
   { textDecoration: 'none' },
@@ -120,5 +113,6 @@ export default {
   H1,
   H2,
   H3,
+  Label,
   Text,
 };
