@@ -1,7 +1,6 @@
 import React from 'react';
 import { BorderSetProps } from 'onno-react';
-import exercisesFImg from 'assets/images/exercises-f.svg';
-import exercisesMImg from 'assets/images/exercises-m.svg';
+import exercisesImg from 'assets/images/exercises-m.svg';
 import infoImg from 'assets/images/info.svg';
 import resourcesImg from 'assets/images/resources.svg';
 import scheduleImg from 'assets/images/schedule.svg';
@@ -28,7 +27,7 @@ const Home = () => (
     <l.FlexBetween flexWrap="wrap" bdb={th.borders.input} bdt={th.borders.input}>
       <Quadrant bdb={th.borders.input} bdr={th.borders.input} src={infoImg} text="Getting Started" to="/start" />
       <Quadrant bdb={th.borders.input} src={scheduleImg} text="Session Schedule" to="/schedule" />
-      <Quadrant bdr={th.borders.input} src={exercisesFImg} text="Exercises" to="/exercises" />
+      <Quadrant bdr={th.borders.input} src={exercisesImg} text="Exercises" to="/exercises" />
       <Quadrant src={resourcesImg} text="Fitness Resources" to="/resources" />
     </l.FlexBetween>
   </>

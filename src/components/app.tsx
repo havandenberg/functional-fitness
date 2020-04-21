@@ -6,6 +6,7 @@ import { TinyButton as ScrollUpButton } from 'react-scroll-up-button';
 import { QueryParamProvider } from 'use-query-params';
 import Footer from 'components/footer';
 import Header from 'components/header';
+import { ROOT_MODAL_ID } from 'components/modal';
 import { GlobalContextProvider } from 'context/global';
 import Exercises from 'routes/exercises';
 import Home from 'routes/home';
@@ -68,6 +69,7 @@ const App = () => (
                 verticalAlign: 'middle',
               }}
             />
+            <div id={ROOT_MODAL_ID} />
           </Main>
           <Global />
         </ThemeProvider>

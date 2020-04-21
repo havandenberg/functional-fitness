@@ -26,7 +26,7 @@ interface Props extends api.Tag {
 const Tag = ({ active, color, id, text, toggleTag, size = 'large', src }: Props) => (
   <Wrapper active={active} color={color} onClick={toggleTag ? () => toggleTag(id) : undefined} size={size} src={src}>
     {src && <l.Img src={src} />}
-    <ty.Text>{text}</ty.Text>
+    <ty.Text nowrap>{text}</ty.Text>
   </Wrapper>
 );
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import infoImg from 'assets/images/info.svg';
 import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
@@ -7,8 +6,7 @@ import ty from 'ui/typography';
 const Start = () => (
   <l.PageContent mx="auto">
     <l.FlexColumnCentered pb={th.spacing.md} pt={th.spacing.lg}>
-      <l.Img height={th.sizes.lg} mb={th.spacing.md} src={infoImg} />
-      <ty.H2>Getting Started</ty.H2>
+      <ty.H2 fontSize={th.fontSizes.h3}>Getting Started</ty.H2>
     </l.FlexColumnCentered>
     <l.Div p={th.spacing.md}>
       <ty.Text mb={th.spacing.md} size="large">

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { any, contains, flatten, isEmpty, pick, pluck, reduce, uniq, values } from 'ramda';
 import * as api from 'api';
-import arrowImg from 'assets/images/arrow.svg';
-import resourcesImg from 'assets/images/resources.svg';
 import List from 'components/list';
+import Resource, { ResourceLink } from 'components/resource';
 import Search from 'components/search';
 import TagSet, { TagWrapper } from 'components/tag-set';
 import Tag from 'components/tag';
@@ -26,16 +25,8 @@ const mungeResourceData = (data: api.Resource, tags: api.Tag[]) => {
   );
   return {
     id,
-    columns: [
-      title,
-      allTags,
-      <a onClick={(e) => e.stopPropagation()} target="_blank" href={to} rel="noopener noreferrer">
-        <l.FlexCentered>
-          <l.Img height={th.sizes.icon} src={arrowImg} />
-        </l.FlexCentered>
-      </a>,
-    ],
-    content: <l.Div height={200} />,
+    columns: [<ty.Text fontWeight={th.fontWeights.semiBold}>{title}</ty.Text>, allTags, <ResourceLink to={to} />],
+    content: <Resource {...data} />,
   };
 };
 
@@ -51,7 +42,7 @@ const Resources = () => {
   const tags = api.fetchTags();
   const resourceTags = getTags(uniq(flatten(pluck('tags', resources))), tags);
 
-  const [enabledTags, toggleTag] = useEnabledTagSet();
+  const [enabledTags, toggleTag] = useEnabledTagSet(resourceTags);
 
   const filteredResources = resources.filter((resource) => {
     const validTags = isEmpty(enabledTags) || any((id) => contains(id, resource.tags), enabledTags);
@@ -69,9 +60,8 @@ const Resources = () => {
 
   return (
     <>
-      <l.FlexColumnCentered my={th.spacing.lg}>
-        <l.Img height={th.sizes.lg} mb={th.spacing.md} src={resourcesImg} />
-        <ty.H2>Fitness Resources</ty.H2>
+      <l.FlexColumnCentered mb={th.spacing.md} mt={th.spacing.lg}>
+        <ty.H2 fontSize={th.fontSizes.h3}>Fitness Resources</ty.H2>
       </l.FlexColumnCentered>
       <Search search={search} setSearch={setSearch} />
       <TagSet enabledTags={enabledTags} label="Tags" tags={resourceTags} toggleTag={toggleTag} />

@@ -13,28 +13,33 @@ export const TagWrapper = styled(l.Div)({
 });
 
 interface Props {
-  enabledTags: string[];
+  enabledTags?: string[];
   label?: string;
   tags: api.Tag[];
-  toggleTag: (id: string) => void;
+  toggleTag?: (id: string) => void;
 }
 
-const TagSet = ({ enabledTags, label, tags, toggleTag }: Props) => (
-  <l.Div mb={th.spacing.md} mx={th.spacing.md}>
-    {label && <ty.Label mb={th.spacing.tn}>{label}</ty.Label>}
-    <l.Scroll display="flex" overflowX="auto" showScrollBar={false}>
-      {tags.map((tag, i) => (
-        <TagWrapper key={i}>
-          <Tag
-            active={isEmpty(enabledTags) || contains(tag.id, enabledTags)}
-            size="small"
-            toggleTag={toggleTag}
-            {...tag}
-          />
-        </TagWrapper>
-      ))}
-    </l.Scroll>
-  </l.Div>
-);
+const TagSet = ({ enabledTags, label, tags, toggleTag }: Props) => {
+  if (isEmpty(tags)) {
+    return null;
+  }
+  return (
+    <l.Div mb={th.spacing.md} mx={th.spacing.md}>
+      {label && <ty.Label mb={th.spacing.tn}>{label}</ty.Label>}
+      <l.Scroll display="flex" overflowX="auto" showScrollBar={false}>
+        {tags.map((tag, i) => (
+          <TagWrapper key={i}>
+            <Tag
+              active={!enabledTags || isEmpty(enabledTags) || contains(tag.id, enabledTags)}
+              size="small"
+              toggleTag={toggleTag}
+              {...tag}
+            />
+          </TagWrapper>
+        ))}
+      </l.Scroll>
+    </l.Div>
+  );
+};
 
 export default TagSet;

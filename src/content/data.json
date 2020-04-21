@@ -3,31 +3,31 @@
     {
       "id": "0",
       "name": "Push Ups",
-      "muscleGroups": ["core", "chest"],
+      "muscleGroups": ["chest"],
       "skills": ["strength"],
-      "equipment": [],
+      "equipment": ["bar"],
       "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png",
       "notes": "Place hands shoulder width apart"
     },
     {
       "id": "1",
       "name": "Pull Ups",
-      "muscleGroups": ["core", "back"],
+      "muscleGroups": ["back"],
       "skills": ["strength"],
       "equipment": ["bar"]
     },
     {
       "id": "2",
       "name": "Jumping Jacks",
-      "muscleGroups": ["core", "chest"],
+      "muscleGroups": [],
       "skills": ["cardio"],
       "equipment": []
     },
-    { "id": "3", "name": "Burpees", "muscleGroups": ["core"], "skills": ["cardio", "hiit"], "equipment": [] },
+    { "id": "3", "name": "Burpees", "muscleGroups": [], "skills": ["cardio", "hiit"], "equipment": [] },
     {
       "id": "4",
       "name": "5km Jog",
-      "muscleGroups": ["core"],
+      "muscleGroups": ["legs"],
       "skills": ["cardio", "running"],
       "equipment": ["jogging-route"]
     },
@@ -35,7 +35,7 @@
     {
       "id": "6",
       "name": "Monkey",
-      "muscleGroups": ["core"],
+      "muscleGroups": ["core", "chest"],
       "skills": ["balance", "control", "strength"],
       "equipment": ["yoga-mat"]
     },
@@ -55,11 +55,21 @@
     { "id": "4", "datetime": "2020-03-19T04:32:00.000Z", "name": "Push", "exercises": [] },
     { "id": "5", "datetime": "2020-02-20T04:32:00.000Z", "name": "Pull Dumbbells", "exercises": [] }
   ],
-  "resources": [{ "id": "0", "tags": ["gmb"], "title": "GMB Handstand Tutorial", "to": "https://gmb.io/handstand/" }],
+  "resources": [
+    {
+      "id": "0",
+      "tags": ["gmb"],
+      "title": "GMB Handstand Tutorial",
+      "types": ["article"],
+      "to": "https://gmb.io/handstand/",
+      "src": "https://functional-fitness.s3.amazonaws.com/resources/handstand.jpg"
+    }
+  ],
   "tags": [
     { "id": "core", "color": "#B8ECFF", "text": "Core" },
     { "id": "chest", "color": "#B8ECFF", "text": "Chest" },
     { "id": "back", "color": "#B8ECFF", "text": "Back" },
+    { "id": "legs", "color": "#B8ECFF", "text": "Legs" },
     { "id": "balance", "color": "#FFEEB8", "text": "Balance" },
     { "id": "control", "color": "#FFEEB8", "text": "Control" },
     { "id": "strength", "color": "#FFEEB8", "text": "Strength" },
@@ -68,6 +78,7 @@
     { "id": "yoga-mat", "color": "#BBFFB8", "src": "", "text": "Yoga Mat" },
     { "id": "jogging-route", "color": "#BBFFB8", "src": "", "text": "Jogging Route" },
     { "id": "bar", "color": "#BBFFB8", "src": "", "text": "Bar" },
-    { "id": "gmb", "color": "#FFB8B8", "src": "", "text": "GMB" }
+    { "id": "gmb", "color": "#FFB8B8", "src": "", "text": "GMB" },
+    { "id": "article", "color": "#E9B8FF", "src": "", "text": "Article" }
   ]
 }

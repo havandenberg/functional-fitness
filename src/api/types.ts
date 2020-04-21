@@ -7,7 +7,7 @@ export interface Exercise {
   name: string;
   notes: string;
   skills: string[];
-  src?: string;
+  src: string;
 }
 
 export interface LiveExercise extends Exercise {
@@ -31,18 +31,19 @@ export interface LiveSession extends Session {
   participants?: string[];
 }
 
-export type ResourceType = 'article' | 'video';
 export interface Resource {
   id: string;
+  notes: string;
+  src: string;
   title: string;
   to: string;
   tags: string[];
-  type: ResourceType;
+  types: string[];
 }
 
 export interface Tag {
   id: string;
   color?: string;
-  text?: string;
+  text: string;
   src?: string;
 }

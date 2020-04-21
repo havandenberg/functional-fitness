@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { any, contains, flatten, isEmpty, pick, pluck, reduce, uniq, values } from 'ramda';
 import * as api from 'api';
-import exercisesFImg from 'assets/images/exercises-f.svg';
-import exercisesMImg from 'assets/images/exercises-m.svg';
 import List from 'components/list';
 import Exercise from 'components/exercise';
 import Search from 'components/search';
@@ -30,7 +28,7 @@ const mungeExerciseData = (data: api.Exercise, tags: api.Tag[]) => {
 
   return {
     id,
-    columns: [name, focusAreas],
+    columns: [<ty.Text fontWeight={th.fontWeights.semiBold}>{name}</ty.Text>, focusAreas],
     content: <Exercise {...data} />,
   };
 };
@@ -48,9 +46,9 @@ const Exercises = () => {
   const skills = getTags(uniq(flatten(pluck('skills', exercises))), tags);
   const equipment = getTags(uniq(flatten(pluck('equipment', exercises))), tags);
 
-  const [enabledMuscleGroupTags, toggleMuscleGroupTag] = useEnabledTagSet();
-  const [enabledSkillsTags, toggleSkillsTag] = useEnabledTagSet();
-  const [enabledEquipmentTags, toggleEquipmentTag] = useEnabledTagSet();
+  const [enabledMuscleGroupTags, toggleMuscleGroupTag] = useEnabledTagSet(muscleGroups);
+  const [enabledSkillsTags, toggleSkillsTag] = useEnabledTagSet(skills);
+  const [enabledEquipmentTags, toggleEquipmentTag] = useEnabledTagSet(equipment);
 
   const filteredExercises = exercises.filter((exercise) => {
     const validMuscleGroups =
@@ -75,8 +73,7 @@ const Exercises = () => {
   return (
     <>
       <l.FlexColumnCentered mb={th.spacing.md} mt={th.spacing.lg}>
-        <l.Img height={th.sizes.lg} mb={th.spacing.md} src={exercisesMImg} />
-        <ty.H2>Exercises</ty.H2>
+        <ty.H2 fontSize={th.fontSizes.h3}>All Exercises</ty.H2>
       </l.FlexColumnCentered>
       <Search search={search} setSearch={setSearch} />
       <TagSet

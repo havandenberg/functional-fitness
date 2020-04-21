@@ -6,6 +6,13 @@ import collapseImg from 'assets/images/collapse.svg';
 import l, { DivProps } from 'ui/layout';
 import th from 'ui/theme';
 
+const ToggleExpand = styled(l.FlexColumnCentered)<{ expanded?: boolean }>(({ expanded }) => ({
+  alignSelf: expanded ? 'start' : 'center',
+  flexBasis: 40,
+  marginTop: expanded ? 20 : undefined,
+  transform: expanded ? undefined : 'translate(-4px)',
+}));
+
 export interface ColumnData {
   title: string;
   styles: DivProps;
@@ -79,9 +86,9 @@ const Item = ({ columns, columnsInfo, content, expanded, id, index, to = '#', to
         </l.FlexColumnCentered>
       )}
       {content && (
-        <l.FlexColumnCentered flexBasis={40} pr={th.spacing.tn}>
+        <ToggleExpand expanded={expanded}>
           <l.Img src={expanded ? collapseImg : expandImg} />
-        </l.FlexColumnCentered>
+        </ToggleExpand>
       )}
     </Component>
   );

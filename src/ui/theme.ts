@@ -1,5 +1,5 @@
 import './fonts.css';
-import { DESKTOP, SMALL, TABLET, TABLET_DOWN, TABLET_UP, TINY } from './utils';
+import { DESKTOP, SMALL, TABLET, TABLET_DOWN, TABLET_UP, TINY, hexColorWithTransparency } from './utils';
 
 export const colors = {
   background: '#F6F6F6',
@@ -20,11 +20,7 @@ export const colors = {
     success: '#00B67D',
     failure: '#D50000',
   },
-  overlay: {
-    dark: 'rgba(32,32,32,0.64)',
-    medium: 'rgba(32,32,32,0.32)',
-    light: 'rgba(32,32,32,0.08)',
-  },
+  overlay: hexColorWithTransparency('#000000', 0.9),
 };
 
 export const gradients = {
@@ -74,10 +70,11 @@ export const fontSizes = {
   lg: '20px',
   h3: '24px',
   h2: '30px',
-  h1: '36px',
+  h1: '32px',
 };
 
 export const fontWeights = {
+  light: 400,
   normal: 500,
   semiBold: 600,
   bold: 700,
@@ -134,7 +131,7 @@ export const scrollStyles = (showScrollBar: boolean) => ({
   },
   '::-webkit-scrollbar-thumb': {
     '-webkit-border-radius': 20,
-    '-webkit-box-shadow': 'inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05)',
+    '-webkit-box-shadow': 'inset -1px -1px 0px rgba(0, 0, 0, 0.15), inset 1px 1px 0px rgba(0, 0, 0, 0.15)',
     backgroundClip: 'padding-box',
     backgroundColor: colors.white,
     border: showScrollBar ? '8px solid rgba(0, 0, 0, 0)' : 0,

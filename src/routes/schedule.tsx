@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import moment from 'moment';
 import { filter, prop, sortBy } from 'ramda';
 import * as api from 'api';
-import scheduleImg from 'assets/images/schedule.svg';
 import List from 'components/list';
 import l from 'ui/layout';
 import th from 'ui/theme';
@@ -39,8 +38,7 @@ const Schedule = () => {
   return (
     <>
       <l.FlexColumnCentered my={th.spacing.lg}>
-        <l.Img height={th.sizes.lg} mb={th.spacing.md} src={scheduleImg} />
-        <ty.H2>Session Schedule</ty.H2>
+        <ty.H2 fontSize={th.fontSizes.h3}>Session Schedule</ty.H2>
       </l.FlexColumnCentered>
       <l.FlexBetween bdb={th.borders.input} bdt={th.borders.input} mb={th.spacing.lg}>
         <l.FlexCentered bdr={th.borders.input} flexBasis="50%" onClick={() => setPast(false)} py={th.spacing.sm}>
