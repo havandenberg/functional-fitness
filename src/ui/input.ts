@@ -7,19 +7,13 @@ const defaultStyles = {
   ':disabled': {
     opacity: 0.6,
   },
-  ':hover': {
-    borderColor: th.colors.brand.primary,
-    boxShadow: `0 1px 3px 0 ${th.colors.black}`,
-  },
-  ':focus': {
-    borderColor: th.colors.brand.primary,
-    color: th.colors.text.default,
-  },
   borderColor: th.colors.gray,
   borderStyle: 'solid',
   borderWidth: 1,
   borderRadius: th.borderRadii.input,
-  padding: th.spacing.md,
+  color: th.colors.text.default,
+  fontSize: th.fontSizes.nm,
+  padding: th.spacing.sm,
   transition: th.transitions.default,
 };
 

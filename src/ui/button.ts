@@ -4,8 +4,8 @@ import { textPropsSet, TextProps } from './typography';
 import th from './theme';
 
 const defaultStyles = {
-  background: th.colors.background,
-  border: th.borders.input,
+  background: 'transparent',
+  border: 0,
   borderRadius: th.borderRadii.input,
   cursor: 'pointer',
   margin: 0,
@@ -21,6 +21,21 @@ interface ButtonProps {
 
 export const Default = styled.button<DivProps & TextProps & ButtonProps & any>(
   defaultStyles,
+  divPropsSet,
+  textPropsSet,
+);
+
+const primaryStyles = {
+  ...defaultStyles,
+  background: th.colors.background,
+  border: th.borders.input,
+  cursor: 'pointer',
+  margin: 0,
+  padding: 0,
+} as const;
+
+export const Primary = styled(Default)<DivProps & TextProps & ButtonProps & any>(
+  primaryStyles,
   ({ active, size = 'small' }) => {
     const isLarge = size === 'large';
     return {
@@ -35,4 +50,5 @@ export const Default = styled.button<DivProps & TextProps & ButtonProps & any>(
 
 export default {
   Default,
+  Primary,
 };

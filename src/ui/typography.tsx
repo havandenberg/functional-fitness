@@ -19,6 +19,7 @@ import { divPropsSet } from './layout';
 import th from './theme';
 
 interface CustomTextProps {
+  active?: boolean;
   bold?: boolean;
   center?: boolean;
   italic?: boolean;
@@ -33,9 +34,11 @@ export type TextProps = SpaceSetProps &
   TransitionProps &
   CustomTextProps;
 
-const customOptions = ({ bold, center, italic, nowrap }: CustomTextProps): any => ({
+const customOptions = ({ active, bold, center, italic, nowrap }: CustomTextProps): any => ({
+  color: active ? th.colors.brand.primary : undefined,
   fontStyle: italic ? 'italic' : undefined,
   fontWeight: bold ? 'bold' : undefined,
+  opacity: active === undefined || active ? 1 : 0.5,
   textAlign: center ? 'center' : undefined,
   whiteSpace: nowrap ? 'nowrap' : undefined,
 });
@@ -115,4 +118,5 @@ export default {
   H3,
   Label,
   Text,
+  TextLink,
 };

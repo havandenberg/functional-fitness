@@ -12,28 +12,28 @@ export const TABLET_DOWN = 'tabletDown';
 export const TABLET_UP = 'tabletUp';
 export const TINY = 'tiny';
 
-export const isDesktop = () =>
-  typeof window !== 'undefined' && window.innerWidth > TABLET_BREAKPOINT;
+export const isDesktop = () => typeof window !== 'undefined' && window.innerWidth > TABLET_BREAKPOINT;
 
-export const isMobile = () =>
-  typeof window !== 'undefined' && window.innerWidth <= TABLET_BREAKPOINT;
+export const isMobile = () => typeof window !== 'undefined' && window.innerWidth <= TABLET_BREAKPOINT;
 
-export const isSmall = () =>
-  typeof window !== 'undefined' && window.innerWidth <= SMALL_BREAKPOINT;
+export const isSmall = () => typeof window !== 'undefined' && window.innerWidth <= SMALL_BREAKPOINT;
 
 export const isTabletOnly = () =>
-  typeof window !== 'undefined' &&
-  window.innerWidth <= TABLET_BREAKPOINT &&
-  window.innerWidth > SMALL_BREAKPOINT;
+  typeof window !== 'undefined' && window.innerWidth <= TABLET_BREAKPOINT && window.innerWidth > SMALL_BREAKPOINT;
 
-export const isTabletUp = () =>
-  typeof window !== 'undefined' && window.innerWidth >= SMALL_BREAKPOINT;
+export const isTabletUp = () => typeof window !== 'undefined' && window.innerWidth >= SMALL_BREAKPOINT;
 
-export const isTiny = () =>
-  typeof window !== 'undefined' && window.innerWidth < TINY_BREAKPOINT;
+export const isTiny = () => typeof window !== 'undefined' && window.innerWidth < TINY_BREAKPOINT;
 
 export const scrollToId = (id: string = 'top', customOptions?: object) =>
   Scroll.scroller.scrollTo(id, {
     ...theme.scrollOptions,
     ...customOptions,
   });
+
+export const hexColorWithTransparency = (hexColor: string, transparency: number) => {
+  const alphaHexValue = transparency < 1 ? (transparency * 255).toString(16) : transparency.toString(16);
+  return `${hexColor}${alphaHexValue.slice(0, 2)}`;
+};
+
+export const addIntegerCommaSeparators = (value: string | number) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');

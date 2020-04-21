@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'Baloo';
+  font-family: 'Overpass';
   font-weight: 500;
-  src: url('../assets/fonts/Baloo-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Overpass-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Baloo';
+  font-family: 'Overpass';
   font-weight: 600;
-  src: url('../assets/fonts/Baloo-SemiBold.ttf') format('truetype');
+  src: url('../assets/fonts/Overpass-SemiBold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Baloo';
+  font-family: 'Overpass';
   font-weight: 700;
-  src: url('../assets/fonts/Baloo-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/Overpass-Bold.ttf') format('truetype');
 }

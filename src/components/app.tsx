@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from 'emotion-theming';
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { TinyButton as ScrollUpButton } from 'react-scroll-up-button';
 import { QueryParamProvider } from 'use-query-params';
 import Footer from 'components/footer';
 import Header from 'components/header';
@@ -22,6 +23,15 @@ const Main = styled(l.FlexBetween)({
   margin: '0 auto',
   maxWidth: th.widths.maxPage,
   minHeight: '100vh',
+  [th.breakpointQueries.desktop]: {
+    borderLeft: th.borders.input,
+    borderRight: th.borders.input,
+  },
+});
+
+const Page = styled(l.Div)({
+  flex: 1,
+  width: th.sizes.fill,
 });
 
 const App = () => (
@@ -31,7 +41,7 @@ const App = () => (
         <ThemeProvider theme={th}>
           <Main>
             <Header />
-            <l.Div flex={1} width={th.sizes.fill}>
+            <Page>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/live" component={Live} />
@@ -43,8 +53,21 @@ const App = () => (
                 <Route path="/session/:id" component={Session} />
                 <Redirect to="/" />
               </Switch>
-            </l.Div>
+            </Page>
             <Footer />
+            <ScrollUpButton
+              AnimationDuration={300}
+              style={{
+                background: th.colors.brand.primaryHighlight,
+                border: th.borders.input,
+                borderRadius: th.borderRadii.input,
+                fill: th.colors.black,
+                height: 22,
+                padding: `7px ${th.spacing.sm} 9px ${th.spacing.sm}`,
+                width: 22,
+                verticalAlign: 'middle',
+              }}
+            />
           </Main>
           <Global />
         </ThemeProvider>

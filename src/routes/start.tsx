@@ -5,7 +5,7 @@ import th from 'ui/theme';
 import ty from 'ui/typography';
 
 const Start = () => (
-  <>
+  <l.PageContent mx="auto">
     <l.FlexColumnCentered pb={th.spacing.md} pt={th.spacing.lg}>
       <l.Img height={th.sizes.lg} mb={th.spacing.md} src={infoImg} />
       <ty.H2>Getting Started</ty.H2>
@@ -40,7 +40,7 @@ const Start = () => (
         Upcoming Features:
       </ty.Text>
     </l.Div>
-  </>
+  </l.PageContent>
 );
 
 export default Start;

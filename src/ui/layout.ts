@@ -138,6 +138,18 @@ export const Anchor = styled.a<DivProps>(
 export const AreaLink = styled(RouterLink)<DivProps>(
   {
     textDecoration: 'none',
+    ':hover': {
+      color: th.colors.text.default,
+      textDecoration: 'none',
+    },
+    ':link, :visited': {
+      color: th.colors.text.default,
+      textDecoration: 'none',
+      ':hover': {
+        color: th.colors.text.default,
+        textDecoration: 'none',
+      },
+    },
   },
   divPropsSet,
 );
@@ -146,7 +158,7 @@ export interface ScrollProps {
   showScrollBar?: boolean;
 }
 const Scroll = styled(Div)<DivProps & ScrollProps & any>(
-  ({ showScrollBar = true }: { showScrollBar: boolean }) => ({
+  ({ showScrollBar = true }) => ({
     ...th.scrollStyles(showScrollBar),
   }),
   divPropsSet,
@@ -163,7 +175,14 @@ const Primary = styled(Span)<DivProps>(
   divPropsSet,
 );
 
+const PageContent = styled(Div)({
+  [th.breakpointQueries.desktop]: {
+    maxWidth: 750,
+  },
+});
+
 export default {
+  AreaLink,
   Div,
   Flex,
   FlexBetween,
@@ -171,6 +190,7 @@ export default {
   FlexColumn,
   FlexColumnCentered,
   Grid,
+  PageContent,
   Primary,
   Img,
   Scroll,

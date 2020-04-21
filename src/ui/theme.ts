@@ -4,10 +4,12 @@ import { DESKTOP, SMALL, TABLET, TABLET_DOWN, TABLET_UP, TINY } from './utils';
 export const colors = {
   background: '#F6F6F6',
   black: '#4A4A4A',
+  lightGray: '#E8E8E8',
   gray: '#979797',
   white: '#FFFFFF',
   brand: {
     primary: '#6A92FF',
+    primaryHighlight: '#DAE2F8',
   },
   text: {
     default: '#4A4A4A',
@@ -63,7 +65,7 @@ export const widths = {
 
 // Typography
 export const fontFamilies = {
-  main: 'Baloo, system-ui, sans-serif',
+  main: 'Overpass, system-ui, sans-serif',
 };
 
 export const fontSizes = {
@@ -145,12 +147,10 @@ export const textStyles = {
   h1: {
     fontSize: fontSizes.h1,
     fontWeight: fontWeights.normal,
-    lineHeight: 1.2,
   },
   h2: {
     fontSize: fontSizes.h2,
     fontWeight: fontWeights.normal,
-    lineHeight: 1.5,
   },
   h3: {
     fontSize: fontSizes.h3,
@@ -159,7 +159,6 @@ export const textStyles = {
   p: {
     fontSize: fontSizes.nm,
     fontWeight: fontWeights.normal,
-    lineHeight: 2,
     // textAlign: 'justify',
   },
   caps: {
@@ -169,6 +168,7 @@ export const textStyles = {
     color: colors.text.default,
     margin: 0,
     padding: 0,
+    transition: transitions.default,
   },
 } as const;
 

@@ -23,7 +23,7 @@ const Quadrant = ({ src, text, to, ...rest }: { src: string; text: string; to: s
 const Home = () => (
   <>
     <l.FlexCentered py={th.spacing.lg}>
-      <b.Default bg={th.colors.status.success}>Join Live Class</b.Default>
+      <b.Primary bg={th.colors.status.success}>Join Live Class</b.Primary>
     </l.FlexCentered>
     <l.FlexBetween flexWrap="wrap" bdb={th.borders.input} bdt={th.borders.input}>
       <Quadrant bdb={th.borders.input} bdr={th.borders.input} src={infoImg} text="Getting Started" to="/start" />
