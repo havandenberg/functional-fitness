@@ -6,32 +6,9 @@ import collapseImg from 'assets/images/collapse.svg';
 import l, { DivProps } from 'ui/layout';
 import th from 'ui/theme';
 
-const ToggleExpand = styled(l.FlexColumnCentered)<{ expanded?: boolean }>(({ expanded }) => ({
-  alignSelf: expanded ? 'start' : 'center',
-  flexBasis: 40,
-  marginTop: expanded ? 20 : undefined,
-  transform: expanded ? undefined : 'translate(-4px)',
-}));
-
-export interface ColumnData {
-  title: string;
-  styles: DivProps;
-  scroll?: false;
-}
-
-export interface ItemData {
-  columns: React.ReactNode[];
-  content?: React.ReactNode;
-  id: string;
-  to?: string;
-}
-
-type ItemProps = ItemData & {
-  columnsInfo: ColumnData[];
-  expanded: boolean;
-  index: number;
-  toggleExpanded: () => void;
-};
+export const EXPAND_BASIS = 30;
+export const INDEX_BASIS = 10;
+export const TO_BASIS = 20;
 
 const Cell = styled(l.Div)<{ scroll?: boolean }>(
   {
@@ -50,6 +27,37 @@ const Cell = styled(l.Div)<{ scroll?: boolean }>(
       : {},
 );
 
+export const Index = styled(l.Centered)<{ expanded?: boolean }>(
+  {
+    borderRadius: th.borderRadii.circle,
+    color: th.colors.white,
+    fontSize: 9,
+    fontWeight: th.fontWeights.bold,
+    height: th.sizes.xs,
+    marginLeft: 6,
+    maxHeight: th.sizes.xs,
+    maxWidth: th.sizes.xs,
+    minHeight: th.sizes.xs,
+    minWidth: th.sizes.xs,
+    width: th.sizes.xs,
+  },
+  ({ expanded }) => ({
+    alignSelf: expanded ? 'start' : 'center',
+  }),
+);
+
+const IndexWrapper = styled(l.Centered)<{ expanded?: boolean }>(({ expanded }) => ({
+  alignSelf: expanded ? 'start' : 'center',
+  flexBasis: INDEX_BASIS,
+  marginTop: expanded ? 16 : undefined,
+}));
+
+const ToggleExpand = styled(l.Centered)<{ expanded?: boolean }>(({ expanded }) => ({
+  alignSelf: expanded ? 'start' : 'center',
+  flexBasis: EXPAND_BASIS,
+  marginTop: expanded ? 20 : undefined,
+}));
+
 const wrapperStyles = [
   {
     borderBottom: th.borders.input,
@@ -64,26 +72,66 @@ const wrapperStyles = [
 const LinkWrapper = styled(l.AreaLink)(wrapperStyles);
 const DivWrapper = styled(l.Div)(wrapperStyles);
 
-const Item = ({ columns, columnsInfo, content, expanded, id, index, to = '#', toggleExpanded }: ItemProps) => {
+export interface ColumnData {
+  title: string;
+  styles: DivProps;
+  scroll?: false;
+}
+
+export interface ItemData {
+  columns: React.ReactNode[];
+  content?: React.ReactNode;
+  id: string;
+  to?: string;
+}
+
+type ItemProps = ItemData & {
+  columnsInfo: ColumnData[];
+  expanded: boolean;
+  index: number;
+  showIndices?: boolean;
+  toggleExpanded: () => void;
+};
+
+const Item = ({
+  columns,
+  columnsInfo,
+  content,
+  expanded,
+  id,
+  index,
+  showIndices,
+  to = '#',
+  toggleExpanded,
+}: ItemProps) => {
   const Component = to === '#' ? DivWrapper : LinkWrapper;
   return (
     <Component index={index} onClick={content ? toggleExpanded : undefined} to={to} type="area">
-      {content && expanded
-        ? content
-        : columns.map((col, i) => (
-            <Cell
-              {...columnsInfo[i].styles}
-              key={`${id}${i}`}
-              ml={th.spacing.md}
-              scroll={columnsInfo[i].scroll === undefined || columnsInfo[i].scroll}
-            >
-              {col}
-            </Cell>
-          ))}
+      {showIndices && (
+        <IndexWrapper expanded={expanded}>
+          <Index bg={th.colors.black}>{index + 1}</Index>
+        </IndexWrapper>
+      )}
+      {content && expanded ? (
+        <Cell flex={1} ml={showIndices ? th.spacing.sm : th.spacing.md}>
+          {content}
+        </Cell>
+      ) : (
+        columns.map((col, i) => (
+          <Cell
+            {...columnsInfo[i].styles}
+            key={`${id}${i}`}
+            ml={showIndices && !i ? th.spacing.sm : th.spacing.md}
+            scroll={columnsInfo[i].scroll === undefined || columnsInfo[i].scroll}
+          >
+            {col}
+          </Cell>
+        ))
+      )}
       {to !== '#' && (
-        <l.FlexColumnCentered flexBasis={20} pr={th.spacing.tn}>
+        <l.Centered flexBasis={TO_BASIS} pr={th.spacing.tn}>
           <l.Img src={detailsImg} />
-        </l.FlexColumnCentered>
+        </l.Centered>
       )}
       {content && (
         <ToggleExpand expanded={expanded}>

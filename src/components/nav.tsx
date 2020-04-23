@@ -11,9 +11,9 @@ import th from 'ui/theme';
 
 const NavItem = ({ active, src, to, ...rest }: { active?: boolean; src: string; to: string } & BorderSetProps) => (
   <Link type="area" to={to} flexBasis="25%">
-    <l.FlexColumnCentered bg={active ? th.colors.brand.primaryHighlight : undefined} p={`${th.spacing.sm} 0`} {...rest}>
+    <l.Centered bg={active ? th.colors.brand.primaryHighlight : undefined} p={`${th.spacing.sm} 0`} {...rest}>
       <l.Img height={th.sizes.icon} src={src} />
-    </l.FlexColumnCentered>
+    </l.Centered>
   </Link>
 );
 

@@ -41,7 +41,10 @@ const App = () => (
       <GlobalContextProvider>
         <ThemeProvider theme={th}>
           <Main>
-            <Header />
+            <Switch>
+              <Route path="/live" component={undefined} />
+              <Header />
+            </Switch>
             <Page>
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -51,7 +54,7 @@ const App = () => (
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/exercises" component={Exercises} />
                 <Route path="/resources" component={Resources} />
-                <Route path="/session/:id" component={Session} />
+                <Route path="/sessions/:id" component={Session} />
                 <Redirect to="/" />
               </Switch>
             </Page>

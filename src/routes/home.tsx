@@ -12,17 +12,19 @@ import ty from 'ui/typography';
 
 const Quadrant = ({ src, text, to, ...rest }: { src: string; text: string; to: string } & BorderSetProps) => (
   <Link type="area" to={to} flexBasis="50%">
-    <l.FlexColumnCentered padding={`${th.spacing.lg} 0`} {...rest}>
+    <l.Centered padding={`${th.spacing.lg} 0`} {...rest}>
       <l.Img height={th.sizes.lg} mb={th.spacing.md} src={src} />
       <ty.Text size="large">{text}</ty.Text>
-    </l.FlexColumnCentered>
+    </l.Centered>
   </Link>
 );
 
 const Home = () => (
   <>
     <l.FlexCentered py={th.spacing.lg}>
-      <b.Primary bg={th.colors.status.success}>Join Live Class</b.Primary>
+      <l.AreaLink to="/live">
+        <b.Primary bg={th.colors.status.success}>Join Live Class</b.Primary>
+      </l.AreaLink>
     </l.FlexCentered>
     <l.FlexBetween flexWrap="wrap" bdb={th.borders.input} bdt={th.borders.input}>
       <Quadrant bdb={th.borders.input} bdr={th.borders.input} src={infoImg} text="Getting Started" to="/start" />

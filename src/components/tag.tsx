@@ -5,7 +5,7 @@ import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 
-const Wrapper = styled(l.FlexColumnCentered)(
+const Wrapper = styled(l.Centered)(
   { borderRadius: th.borderRadii.input, transition: th.transitions.default },
   ({ active, color, size, src, toggleTag }: Omit<Props, 'id' | 'text'>) => ({
     background: src ? 'transparent' : color,

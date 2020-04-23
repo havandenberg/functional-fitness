@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { DecodedValueMap, QueryParamConfigMap, StringParam, useQueryParams } from 'use-query-params';
 
-const typeParamSet = { param: StringParam };
+const liveParamSet = { liveId: StringParam };
 
 const useQuerySet = <QPCMap extends QueryParamConfigMap>(paramSet: QPCMap) => {
   const [query, setQuery] = useQueryParams(paramSet);
@@ -14,4 +14,4 @@ const useQuerySet = <QPCMap extends QueryParamConfigMap>(paramSet: QPCMap) => {
   return [query, updateQuery] as const;
 };
 
-export const useTypeQueryParams = () => useQuerySet(typeParamSet);
+export const useLiveQueryParams = () => useQuerySet(liveParamSet);

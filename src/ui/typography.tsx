@@ -80,6 +80,7 @@ const H3 = styled.h3<TextProps & any>(th.textStyles.h3, textPropsSet);
 
 const Label = styled(StyledText)<TextProps & any>(
   {
+    color: th.colors.brand.primary,
     fontSize: th.fontSizes.sm,
     textTransform: 'uppercase',
   },

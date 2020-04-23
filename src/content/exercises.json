@@ -1,0 +1,109 @@
+[
+  {
+    "id": "push-up",
+    "author": "",
+    "equipmentIds": ["bar"],
+    "muscleGroupIds": ["chest"],
+    "name": "Push Ups",
+    "notes": [
+      { "name": "Regular", "notes": "Place hands shoulder width apart. Go slow." },
+      { "name": "Wide", "notes": "Place hands wider than shoulder width apart. Go slow." },
+      {
+        "name": "Diamond",
+        "notes": "Place hands close together so your index fingers and thumbs form a diamond. Go slow."
+      }
+    ],
+    "skillIds": ["strength"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "pull-up",
+    "author": "",
+    "equipmentIds": ["bar"],
+    "muscleGroupIds": ["back"],
+    "name": "Pull Ups",
+    "notes": "Place hands slightly wider than shoulder width apart. Go slow.",
+    "skillIds": ["strength"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "jumping-jack",
+    "author": "",
+    "equipmentIds": [],
+    "muscleGroupIds": [],
+    "name": "Jumping Jacks",
+    "notes": "Classic jumping jack.",
+    "skillIds": ["cardio"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "burpee",
+    "author": "",
+    "equipmentIds": [],
+    "muscleGroupIds": [],
+    "name": "Burpees",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["cardio", "hiit"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "jog-5km",
+    "author": "",
+    "equipmentIds": ["route"],
+    "muscleGroupIds": ["legs"],
+    "name": "5km Jog",
+    "notes": "Stand tall and run on the balls of your feet.",
+    "skillIds": ["cardio", "running"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "shadow-boxing",
+    "author": "",
+    "equipmentIds": [],
+    "muscleGroupIds": ["core", "chest"],
+    "name": "Shadow Boxing",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["hiit", "martial-arts"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "monkey",
+    "author": "",
+    "equipmentIds": ["mat"],
+    "muscleGroupIds": ["core", "chest"],
+    "name": "Monkey",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["balance", "control", "strength"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "frog",
+    "author": "",
+    "equipmentIds": ["mat"],
+    "muscleGroupIds": ["core", "chest"],
+    "name": "Frog",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["balance", "control", "strength"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "bear",
+    "author": "",
+    "equipmentIds": ["mat"],
+    "muscleGroupIds": ["core", "shoulders"],
+    "name": "Bear",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["balance", "control", "strength", "mobility"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "meditation",
+    "author": "",
+    "equipmentIds": ["mat"],
+    "muscleGroupIds": [],
+    "name": "Meditation",
+    "notes": "Place hands shoulder width apart",
+    "skillIds": ["balance", "focus"],
+    "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  }
+]

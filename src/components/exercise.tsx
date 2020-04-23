@@ -1,26 +1,32 @@
 import React from 'react';
-import { isEmpty } from 'ramda';
 import * as api from 'api';
 import Modal from 'components/modal';
+import Notes from 'components/notes';
 import TagSet from 'components/tag-set';
 import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 import { getTags } from 'utils/tags';
 
-const Exercise = ({ equipment, muscleGroups, name, notes, skills, src }: api.Exercise) => {
+interface Props {
+  live?: boolean;
+}
+
+const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, src }: Props & api.Exercise) => {
   const tags = api.fetchTags();
-  const muscleGroupsTags = getTags(muscleGroups, tags);
-  const skillsTags = getTags(skills, tags);
-  const equipmentTags = getTags(equipment, tags);
+  const muscleGroupIdsTags = getTags(muscleGroupIds, tags);
+  const skillIdsTags = getTags(skillIds, tags);
+  const equipmentIdsTags = getTags(equipmentIds, tags);
 
   return (
-    <l.Div flex={1} mb={th.spacing.md} mt={th.spacing.sm} mx={th.spacing.md}>
-      <l.Flex height={31} mb={th.spacing.sm}>
-        <ty.Text fontWeight={th.fontWeights.semiBold}>{name}</ty.Text>
-      </l.Flex>
-      <l.FlexBetween alignStart>
-        <l.Div flexBasis="50%">
+    <l.Div flex={1} mb={th.spacing.sm}>
+      {!live && (
+        <l.Flex height={31} mb={th.spacing.sm}>
+          <ty.Text fontWeight={th.fontWeights.semiBold}>{name}</ty.Text>
+        </l.Flex>
+      )}
+      <l.FlexBetween alignStart mb={th.spacing.sm}>
+        <l.Div width="50%">
           <Modal
             toggle={(show) => (
               <l.Img
@@ -33,39 +39,27 @@ const Exercise = ({ equipment, muscleGroups, name, notes, skills, src }: api.Exe
               />
             )}
             content={() => (
-              <>
+              <l.Div mb={th.spacing.lg}>
                 <l.FlexCentered>
                   <ty.Text color={th.colors.white} fontSize={th.fontSizes.h3} mb={th.spacing.md}>
                     {name}
                   </ty.Text>
                 </l.FlexCentered>
-                <l.Img onClick={(e) => e.stopPropagation()} src={src} width={th.sizes.fill} />
-                {notes && !isEmpty(notes) && (
-                  <>
-                    <ty.Label color={th.colors.white} mb={th.spacing.sm} mt={th.spacing.md}>
-                      Notes
-                    </ty.Label>
-                    <ty.Text color={th.colors.white} fontWeight={th.fontWeights.light}>
-                      {notes}
-                    </ty.Text>
-                  </>
-                )}
-              </>
+                <l.Img mb={th.spacing.sm} onClick={(e) => e.stopPropagation()} src={src} width={th.sizes.fill} />
+                {notes && <Notes live={live} notes={notes} />}
+              </l.Div>
             )}
           />
         </l.Div>
-        <l.Div flexBasis="50%">
-          <TagSet label="Muscle Groups" tags={muscleGroupsTags} />
-          <TagSet label="Skills" tags={skillsTags} />
-          <TagSet label="Equipment" tags={equipmentTags} />
+        <l.Div width="50%">
+          <TagSet label="Muscle Groups" tags={muscleGroupIdsTags} />
+          <TagSet label="Skills" tags={skillIdsTags} />
+          <l.Div width={th.sizes.fill}>
+            <TagSet label="Equipment" tags={equipmentIdsTags} />
+          </l.Div>
         </l.Div>
       </l.FlexBetween>
-      {notes && !isEmpty(notes) && (
-        <>
-          <ty.Label>Notes</ty.Label>
-          <ty.Text>{notes}</ty.Text>
-        </>
-      )}
+      {notes && <Notes notes={notes} />}
     </l.Div>
   );
 };

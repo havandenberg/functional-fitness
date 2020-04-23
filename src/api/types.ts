@@ -1,49 +1,59 @@
 export type ExerciseType = 'time' | 'reps';
-export interface Exercise {
-  author: string;
-  equipment: string[];
-  id: string;
-  muscleGroups: string[];
-  name: string;
+export interface Level {
+  name?: string;
   notes: string;
-  skills: string[];
+}
+export type Notes = string | Level[];
+export interface Exercise {
+  id: string;
+  author?: string;
+  equipmentIds: string[];
+  muscleGroupIds: string[];
+  name: string;
+  notes?: Notes;
+  skillIds: string[];
   src: string;
 }
 
-export interface LiveExercise extends Exercise {
+export interface Session {
+  id: string;
+  author: string;
+  exerciseIds: string[];
+  name: string;
+  notes?: Notes;
+}
+
+export interface LiveExercise {
   alternateId: string;
-  count: number;
+  count: string;
+  exerciseId: string;
+  setCount: number;
   type: ExerciseType;
 }
 
-export interface Session {
-  author: string;
-  datetime: string;
-  exercises: Exercise[];
+export interface LiveSession {
   id: string;
+  activeExerciseIndex?: number;
+  datetime: string;
+  duration: string;
+  exercises: LiveExercise[];
   instructor: string;
-  name: string;
-  notes: string;
-}
-
-export interface LiveSession extends Session {
-  activeExercise?: string[];
-  participants?: string[];
+  sessionId: string;
 }
 
 export interface Resource {
   id: string;
   notes: string;
   src: string;
+  tagIds: string[];
   title: string;
   to: string;
-  tags: string[];
-  types: string[];
+  typeIds: string[];
 }
 
 export interface Tag {
   id: string;
   color?: string;
-  text: string;
   src?: string;
+  text: string;
 }

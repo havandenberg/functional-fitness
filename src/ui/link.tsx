@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Link = ({
-  preserveParams = true,
+  preserveParams = false,
   to,
   type,
   ...rest

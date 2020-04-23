@@ -10,6 +10,7 @@ export const colors = {
   brand: {
     primary: '#6A92FF',
     primaryHighlight: '#DAE2F8',
+    secondary: '#F45656',
   },
   text: {
     default: '#4A4A4A',
@@ -176,6 +177,7 @@ export const globalStyles = {
     fontFamily: fontFamilies.main,
     margin: 0,
     padding: 0,
+    ...scrollStyles(true),
   },
   h1: {
     ...textStyles.common,

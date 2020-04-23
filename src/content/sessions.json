@@ -1,0 +1,44 @@
+[
+  {
+    "id": "0",
+    "author": "Coach Halsey",
+    "exerciseIds": ["pull-up", "push-up"],
+    "name": "Core & Balance",
+    "notes": "Core and balance focus."
+  },
+  {
+    "id": "1",
+    "author": "REaCT",
+    "exerciseIds": [],
+    "name": "The Runs",
+    "notes": "Many different exercises."
+  },
+  {
+    "id": "2",
+    "author": "REaCT",
+    "exerciseIds": ["jumping-jack", "jog-5km"],
+    "name": "Gauntlet",
+    "notes": "Starts from Greenhill Park"
+  },
+  {
+    "id": "3",
+    "author": "Coach Halsey",
+    "exerciseIds": ["meditation"],
+    "name": "Meditation",
+    "notes": "Observe your mind and body."
+  },
+  {
+    "id": "4",
+    "author": "Coach Halsey",
+    "exerciseIds": ["push-up", "pull-up"],
+    "name": "Push Bodyweight",
+    "notes": "Bodyweight exercises for \"push\" muscle groups"
+  },
+  {
+    "id": "5",
+    "author": "Coach Halsey",
+    "exerciseIds": ["pull-up", "push-up"],
+    "name": "Pull Dumbbells",
+    "notes": "Dumbbell exercises for \"pull\" muscle groups"
+  }
+]

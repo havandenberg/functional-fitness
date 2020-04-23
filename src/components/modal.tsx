@@ -22,6 +22,7 @@ const Overlay = styled(l.Div)({
   top: 0,
   width: th.sizes.fill,
   zIndex: 1100,
+  ...th.scrollStyles(true),
 });
 
 const StyledModal = styled(l.Div)({

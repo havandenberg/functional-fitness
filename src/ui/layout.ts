@@ -115,7 +115,7 @@ const FlexColumn = styled(Flex)<DivProps>(
   },
   divPropsSet,
 );
-const FlexColumnCentered = styled(FlexCentered)<DivProps>(
+const Centered = styled(FlexCentered)<DivProps>(
   {
     flexDirection: 'column',
   },
@@ -182,13 +182,14 @@ const PageContent = styled(Div)({
 });
 
 export default {
+  Anchor,
   AreaLink,
   Div,
   Flex,
   FlexBetween,
   FlexCentered,
   FlexColumn,
-  FlexColumnCentered,
+  Centered,
   Grid,
   PageContent,
   Primary,

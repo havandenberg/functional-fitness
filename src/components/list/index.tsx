@@ -4,7 +4,7 @@ import { any } from 'ramda';
 import collapseAllImg from 'assets/images/collapse-all.svg';
 import expandAllImg from 'assets/images/expand-all.svg';
 import Loading from 'components/loading';
-import Item, { ColumnData, ItemData } from 'components/list/item';
+import Item, { ColumnData, INDEX_BASIS, ItemData, EXPAND_BASIS, TO_BASIS } from 'components/list/item';
 import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
@@ -29,9 +29,10 @@ interface Props {
   header?: string;
   isLoading: boolean;
   items: ItemData[];
+  showIndices?: boolean;
 }
 
-const List = ({ columns, header, isLoading, items }: Props) => {
+const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
   const [expanded, setExpanded] = useState<boolean[]>(items.map(() => false));
 
   const toggleExpanded = (index: number) => setExpanded(expanded.map((value, idx) => (index === idx ? !value : value)));
@@ -39,6 +40,7 @@ const List = ({ columns, header, isLoading, items }: Props) => {
   const expandAll = () => setExpanded(expanded.map(() => true));
 
   const hasContent = any((item) => !!item.content, items);
+  const hasTo = any((item) => !!item.to, items);
 
   return (
     <l.Div mb={th.spacing.xl}>
@@ -59,12 +61,14 @@ const List = ({ columns, header, isLoading, items }: Props) => {
       )}
       <Grid>
         <l.Flex bdb={th.borders.input}>
+          {showIndices && <l.Div flexBasis={INDEX_BASIS + 4} />}
           {columns.map((col) => (
             <l.Div {...col.styles} key={col.title} mb={th.spacing.tn} pl={th.spacing.md}>
-              <ty.Label>{col.title}</ty.Label>
+              <ty.Label flex={1}>{col.title}</ty.Label>
             </l.Div>
           ))}
-          {hasContent && <l.Div flexBasis={40} pr={th.spacing.tn} />}
+          {hasContent && <l.Div flexBasis={EXPAND_BASIS} />}
+          {hasTo && <l.Div flexBasis={TO_BASIS} />}
         </l.Flex>
         {items.map((item, idx) => (
           <Item
@@ -72,6 +76,7 @@ const List = ({ columns, header, isLoading, items }: Props) => {
             expanded={expanded[idx]}
             index={idx}
             key={item.id}
+            showIndices={showIndices}
             toggleExpanded={() => toggleExpanded(idx)}
             {...item}
           />

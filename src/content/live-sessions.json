@@ -1,0 +1,62 @@
+[
+  {
+    "id": "0",
+    "datetime": "2020-04-20T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [
+      { "alternateId": "", "count": "4", "exerciseId": "pull-up", "setCount": "2", "type": "reps" },
+      { "alternateId": "", "count": "2:40", "exerciseId": "push-up", "setCount": "2", "type": "time" }
+    ],
+    "instructor": "Coach Halsey",
+    "sessionId": "0"
+  },
+  {
+    "id": "1",
+    "datetime": "2020-04-19T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [],
+    "instructor": "Coach Halsey",
+    "sessionId": "1"
+  },
+  {
+    "id": "2",
+    "datetime": "2020-05-20T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [
+      { "alternateId": "", "count": "30", "exerciseId": "jumping-jack", "setCount": "2", "type": "reps" },
+      { "alternateId": "", "count": "20", "exerciseId": "job-5km", "setCount": "1", "type": "time" }
+    ],
+    "instructor": "Coach Halsey",
+    "sessionId": "2"
+  },
+  {
+    "id": "3",
+    "datetime": "2020-06-13T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [{ "alternateId": "", "count": "5:00", "exerciseId": "meditation", "setCount": "1", "type": "reps" }],
+    "instructor": "Coach Halsey",
+    "sessionId": "3"
+  },
+  {
+    "id": "4",
+    "datetime": "2020-03-19T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [
+      { "alternateId": "", "count": "2:40", "exerciseId": "push-up", "setCount": "2", "type": "time" },
+      { "alternateId": "", "count": "4", "exerciseId": "pull-up", "setCount": "2", "type": "reps" }
+    ],
+    "instructor": "Coach Halsey",
+    "sessionId": "4"
+  },
+  {
+    "id": "5",
+    "datetime": "2020-02-20T04:32:00.000Z",
+    "duration": "30 min",
+    "exercises": [
+      { "alternateId": "", "count": "4", "exerciseId": "pull-up", "setCount": "2", "type": "reps" },
+      { "alternateId": "", "count": "2:40", "exerciseId": "push-up", "setCount": "2", "type": "time" }
+    ],
+    "instructor": "Coach Halsey",
+    "sessionId": "5"
+  }
+]

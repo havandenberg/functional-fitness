@@ -1,0 +1,11 @@
+[
+  {
+    "id": "0",
+    "notes": "The best handstand tutorial you will ever read.",
+    "src": "https://functional-fitness.s3.amazonaws.com/resources/handstand.jpg",
+    "tagIds": ["gmb"],
+    "title": "GMB Handstand Tutorial",
+    "to": "https://gmb.io/handstand/",
+    "typeIds": ["article"]
+  }
+]

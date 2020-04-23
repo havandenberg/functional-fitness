@@ -5,9 +5,9 @@ import ty from 'ui/typography';
 
 const Start = () => (
   <l.PageContent mx="auto">
-    <l.FlexColumnCentered pb={th.spacing.md} pt={th.spacing.lg}>
+    <l.Centered pb={th.spacing.md} pt={th.spacing.lg}>
       <ty.H2 fontSize={th.fontSizes.h3}>Getting Started</ty.H2>
-    </l.FlexColumnCentered>
+    </l.Centered>
     <l.Div p={th.spacing.md}>
       <ty.Text mb={th.spacing.md} size="large">
         Class Structure:
