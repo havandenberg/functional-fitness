@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { any } from 'ramda';
 import collapseAllImg from 'assets/images/collapse-all.svg';
@@ -42,6 +42,8 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
   const hasContent = any((item) => !!item.content, items);
   const hasTo = any((item) => !!item.to, items);
 
+  useEffect(collapseAll, [items.length]);
+
   return (
     <l.Div mb={th.spacing.xl}>
       {header && (
@@ -49,11 +51,11 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
           <ty.Text size="large">{header}</ty.Text>
           {hasContent && (
             <l.Flex>
-              <Action mr={th.spacing.sm} onClick={expandAll}>
-                <l.Img src={expandAllImg} />
+              <Action mr={th.spacing.sm} onClick={collapseAll}>
+                <l.Img src={collapseAllImg} />
               </Action>
-              <Action>
-                <l.Img onClick={collapseAll} src={collapseAllImg} />
+              <Action onClick={expandAll}>
+                <l.Img src={expandAllImg} />
               </Action>
             </l.Flex>
           )}

@@ -1,7 +1,8 @@
 import React from 'react';
+import { isEmpty } from 'ramda';
 import * as api from 'api';
 import arrowImg from 'assets/images/arrow.svg';
-import Modal from 'components/modal';
+import Maximize from 'components/maximize';
 import Notes from 'components/notes';
 import TagSet from 'components/tag-set';
 import l from 'ui/layout';
@@ -23,7 +24,7 @@ const Resource = ({ notes, src, tagIds, title, to, typeIds }: api.Resource) => {
   const tagTags = getTags(tagIds, allTags);
 
   return (
-    <l.Div flex={1} mb={th.spacing.sm}>
+    <l.Div flex={1} mb={th.spacing.md}>
       <l.FlexBetween mb={th.spacing.sm} width={th.sizes.fill}>
         <l.Flex height={31}>
           <ty.Text fontWeight={th.fontWeights.semiBold}>{title}</ty.Text>
@@ -34,36 +35,35 @@ const Resource = ({ notes, src, tagIds, title, to, typeIds }: api.Resource) => {
       </l.FlexBetween>
       <l.FlexBetween alignStart mb={th.spacing.sm}>
         <l.Div width="50%">
-          <Modal
-            toggle={(show) => (
-              <l.Img
-                onClick={(e) => {
-                  e.stopPropagation();
-                  show();
-                }}
-                src={src}
-                width={th.sizes.fill}
-              />
-            )}
-            content={() => (
-              <>
-                <l.FlexCentered>
-                  <ty.Text color={th.colors.white} fontSize={th.fontSizes.h3} mb={th.spacing.md}>
-                    {title}
-                  </ty.Text>
-                </l.FlexCentered>
-                <l.Img onClick={(e) => e.stopPropagation()} src={src} width={th.sizes.fill} />
-                {notes && <Notes notes={notes} />}
-              </>
-            )}
-          />
+          {src && (
+            <Maximize
+              toggle={<l.Img src={src} width={th.sizes.fill} />}
+              content={
+                <>
+                  <l.FlexCentered bg={th.colors.background} onClick={(e) => e.stopPropagation()}>
+                    <ty.Text center fontSize={th.fontSizes.h3} mb={th.spacing.md} mt={th.spacing.sm}>
+                      {title}
+                    </ty.Text>
+                  </l.FlexCentered>
+                  <l.Div bg={th.colors.background} flex={1} onClick={(e) => e.stopPropagation()} scroll>
+                    <l.Img pb={th.spacing.sm} src={src} width={th.sizes.fill} />
+                    {notes && !isEmpty(notes) && (
+                      <l.Div px={th.spacing.sm} pb={th.spacing.lg}>
+                        <Notes notes={notes} />
+                      </l.Div>
+                    )}
+                  </l.Div>
+                </>
+              }
+            />
+          )}
         </l.Div>
         <l.Div width="50%">
           <TagSet label="Type" tags={typeTags} />
           <TagSet label="Tags" tags={tagTags} />
         </l.Div>
       </l.FlexBetween>
-      {notes && <Notes notes={notes} />}
+      {notes && !isEmpty(notes) && <Notes notes={notes} />}
     </l.Div>
   );
 };

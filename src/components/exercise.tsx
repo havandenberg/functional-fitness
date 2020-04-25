@@ -1,6 +1,7 @@
 import React from 'react';
+import { isEmpty } from 'ramda';
 import * as api from 'api';
-import Modal from 'components/modal';
+import Maximize from 'components/maximize';
 import Notes from 'components/notes';
 import TagSet from 'components/tag-set';
 import l from 'ui/layout';
@@ -19,7 +20,7 @@ const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, s
   const equipmentIdsTags = getTags(equipmentIds, tags);
 
   return (
-    <l.Div flex={1} mb={th.spacing.sm}>
+    <l.Div flex={1} mb={th.spacing.md}>
       {!live && (
         <l.Flex height={31} mb={th.spacing.sm}>
           <ty.Text fontWeight={th.fontWeights.semiBold}>{name}</ty.Text>
@@ -27,29 +28,28 @@ const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, s
       )}
       <l.FlexBetween alignStart mb={th.spacing.sm}>
         <l.Div width="50%">
-          <Modal
-            toggle={(show) => (
-              <l.Img
-                onClick={(e) => {
-                  e.stopPropagation();
-                  show();
-                }}
-                src={src}
-                width={th.sizes.fill}
-              />
-            )}
-            content={() => (
-              <l.Div mb={th.spacing.lg}>
-                <l.FlexCentered>
-                  <ty.Text color={th.colors.white} fontSize={th.fontSizes.h3} mb={th.spacing.md}>
-                    {name}
-                  </ty.Text>
-                </l.FlexCentered>
-                <l.Img mb={th.spacing.sm} onClick={(e) => e.stopPropagation()} src={src} width={th.sizes.fill} />
-                {notes && <Notes live={live} notes={notes} />}
-              </l.Div>
-            )}
-          />
+          {src && (
+            <Maximize
+              toggle={<l.Img src={src} width={th.sizes.fill} />}
+              content={
+                <>
+                  <l.FlexCentered bg={th.colors.background}>
+                    <ty.Text center fontSize={th.fontSizes.h3} mb={th.spacing.md} mt={th.spacing.sm}>
+                      {name}
+                    </ty.Text>
+                  </l.FlexCentered>
+                  <l.Div bg={th.colors.background} flex={1} scroll>
+                    <l.Img pb={th.spacing.sm} src={src} width={th.sizes.fill} />
+                    {notes && !isEmpty(notes) && (
+                      <l.Div px={th.spacing.sm} pb={th.spacing.lg}>
+                        <Notes notes={notes} />
+                      </l.Div>
+                    )}
+                  </l.Div>
+                </>
+              }
+            />
+          )}
         </l.Div>
         <l.Div width="50%">
           <TagSet label="Muscle Groups" tags={muscleGroupIdsTags} />
@@ -59,7 +59,7 @@ const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, s
           </l.Div>
         </l.Div>
       </l.FlexBetween>
-      {notes && <Notes notes={notes} />}
+      {notes && !isEmpty(notes) && <Notes notes={notes} />}
     </l.Div>
   );
 };

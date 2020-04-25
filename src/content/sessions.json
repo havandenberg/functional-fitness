@@ -2,7 +2,7 @@
   {
     "id": "0",
     "author": "Coach Halsey",
-    "exerciseIds": ["pull-up", "push-up"],
+    "exerciseIds": ["pull-up", "rest", "push-up"],
     "name": "Core & Balance",
     "notes": "Core and balance focus."
   },

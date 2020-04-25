@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';
+import { enableBodyScroll } from 'body-scroll-lock';
+import ReactDOM from 'react-dom';
 import closeImg from 'assets/images/close.svg';
 import l from 'ui/layout';
 import th from 'ui/theme';
@@ -8,13 +9,13 @@ import th from 'ui/theme';
 export const ROOT_MODAL_ID = 'modal-root';
 
 const Close = styled(l.Img)({
-  height: th.sizes.xs,
+  height: 12,
   position: 'absolute',
   right: th.spacing.md,
   top: th.spacing.md,
 });
 
-const Overlay = styled(l.Div)({
+const Overlay = styled(l.Flex)({
   background: th.colors.overlay,
   height: th.sizes.fill,
   left: 0,
@@ -22,15 +23,18 @@ const Overlay = styled(l.Div)({
   top: 0,
   width: th.sizes.fill,
   zIndex: 1100,
-  ...th.scrollStyles(true),
 });
 
 const StyledModal = styled(l.Div)({
   borderRadius: th.borderRadii.input,
-  margin: `0 ${th.spacing.md}`,
-  padding: `${th.spacing.md} auto`,
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  margin: `0 ${th.spacing.md} ${th.spacing.md}`,
+  maxHeight: `calc(${th.sizes.fill} - 56px)`,
   position: 'absolute',
-  top: th.spacing.lg,
+  top: 40,
+  width: `calc(${th.sizes.fill} - ${th.spacing.lg})`,
 });
 
 const ModalContent = ({ children, hide }: { children: React.ReactNode; hide: () => void }) => {
@@ -40,6 +44,9 @@ const ModalContent = ({ children, hide }: { children: React.ReactNode; hide: () 
         <Overlay
           onClick={(e) => {
             e.stopPropagation();
+            if (document.body) {
+              enableBodyScroll(document.body);
+            }
             hide();
           }}
         >

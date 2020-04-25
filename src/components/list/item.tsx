@@ -5,6 +5,7 @@ import expandImg from 'assets/images/expand.svg';
 import collapseImg from 'assets/images/collapse.svg';
 import l, { DivProps } from 'ui/layout';
 import th from 'ui/theme';
+import { scrollToId } from 'ui/utils';
 
 export const EXPAND_BASIS = 30;
 export const INDEX_BASIS = 10;
@@ -106,7 +107,20 @@ const Item = ({
 }: ItemProps) => {
   const Component = to === '#' ? DivWrapper : LinkWrapper;
   return (
-    <Component index={index} onClick={content ? toggleExpanded : undefined} to={to} type="area">
+    <Component
+      id={id}
+      index={index}
+      onClick={
+        content
+          ? () => {
+              toggleExpanded();
+              scrollToId(id);
+            }
+          : undefined
+      }
+      to={to}
+      type="area"
+    >
       {showIndices && (
         <IndexWrapper expanded={expanded}>
           <Index bg={th.colors.black}>{index + 1}</Index>

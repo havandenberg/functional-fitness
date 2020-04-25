@@ -41,6 +41,7 @@ interface CustomDivProps {
   justifyStart?: boolean;
   pointer?: boolean;
   relative?: boolean;
+  scroll?: boolean;
   wrap?: boolean;
 }
 export type DivProps = BackgroundSetProps &
@@ -65,6 +66,7 @@ const customOptions: (props: CustomDivProps) => any = ({
   justifyStart,
   pointer,
   relative,
+  scroll,
   wrap,
 }) => ({
   alignItems: alignStart ? 'flex-start' : alignEnd ? 'flex-end' : undefined,
@@ -78,6 +80,7 @@ const customOptions: (props: CustomDivProps) => any = ({
     columnOnMobile || columnReverseOnMobile
       ? { flexDirection: columnReverseOnMobile ? 'column-reverse' : 'column' }
       : {},
+  ...(scroll === undefined ? {} : { overflow: 'auto', ...th.scrollStyles(scroll) }),
 });
 
 export const divPropsSet = [

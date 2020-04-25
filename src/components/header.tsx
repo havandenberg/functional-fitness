@@ -2,13 +2,14 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
+import LiveIndicator from 'components/live-indicator';
 import Nav from 'components/nav';
 import l from 'ui/layout';
 import Link from 'ui/link';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 
-const Sticky = styled(l.Div)<{ root: boolean }>(
+export const Sticky = styled(l.Div)<{ root?: boolean }>(
   {
     background: th.colors.background,
     position: 'sticky',
@@ -33,7 +34,12 @@ const Header = () => {
       </Link>
       <Switch>
         <Route exact path="/" component={undefined} />
-        <Nav />
+        <>
+          <Nav />
+          <l.AreaLink position="absolute" to="/live" top={th.spacing.sm} right={th.spacing.sm}>
+            <LiveIndicator />
+          </l.AreaLink>
+        </>
       </Switch>
     </Sticky>
   );

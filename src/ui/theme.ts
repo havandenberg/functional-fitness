@@ -18,10 +18,11 @@ export const colors = {
     inv: '#FFFFFF',
   },
   status: {
-    success: '#00B67D',
-    failure: '#D50000',
+    success: '#64A338',
+    failure: '#E03B24',
+    warning: '#FFCC00',
   },
-  overlay: hexColorWithTransparency('#000000', 0.9),
+  overlay: hexColorWithTransparency('#000000', 0.85),
 };
 
 export const gradients = {
@@ -113,7 +114,7 @@ export const transitions = {
 
 export const scrollOptions = {
   duration: 300,
-  offset: -100,
+  offset: -200,
   smooth: 'true',
 };
 

@@ -1,10 +1,12 @@
 [
   {
     "id": "0",
+    "activeIndex": 0,
     "datetime": "2020-04-20T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [
       { "alternateId": "", "count": "4", "exerciseId": "pull-up", "setCount": "2", "type": "reps" },
+      { "alternateId": "", "count": "1:00", "exerciseId": "rest", "setCount": "1", "type": "time" },
       { "alternateId": "", "count": "2:40", "exerciseId": "push-up", "setCount": "2", "type": "time" }
     ],
     "instructor": "Coach Halsey",
@@ -12,6 +14,7 @@
   },
   {
     "id": "1",
+    "activeIndex": "0",
     "datetime": "2020-04-19T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [],
@@ -20,6 +23,7 @@
   },
   {
     "id": "2",
+    "activeIndex": "0",
     "datetime": "2020-05-20T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [
@@ -31,6 +35,7 @@
   },
   {
     "id": "3",
+    "activeIndex": "0",
     "datetime": "2020-06-13T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [{ "alternateId": "", "count": "5:00", "exerciseId": "meditation", "setCount": "1", "type": "reps" }],
@@ -39,6 +44,7 @@
   },
   {
     "id": "4",
+    "activeIndex": "0",
     "datetime": "2020-03-19T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [
@@ -50,6 +56,7 @@
   },
   {
     "id": "5",
+    "activeIndex": "0",
     "datetime": "2020-02-20T04:32:00.000Z",
     "duration": "30 min",
     "exercises": [

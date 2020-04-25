@@ -10,6 +10,7 @@ const defaultStyles = {
   cursor: 'pointer',
   margin: 0,
   padding: 0,
+  transition: th.transitions.default,
 } as const;
 
 type ButtonSize = 'small' | 'large';

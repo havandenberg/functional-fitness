@@ -4,8 +4,14 @@
     "author": "",
     "equipmentIds": ["bar"],
     "muscleGroupIds": ["chest"],
-    "name": "Push Ups",
+    "name": "Push Ups With A Really Long Title",
     "notes": [
+      { "name": "Regular", "notes": "Place hands shoulder width apart. Go slow." },
+      { "name": "Wide", "notes": "Place hands wider than shoulder width apart. Go slow." },
+      {
+        "name": "Diamond",
+        "notes": "Place hands close together so your index fingers and thumbs form a diamond. Go slow."
+      },
       { "name": "Regular", "notes": "Place hands shoulder width apart. Go slow." },
       { "name": "Wide", "notes": "Place hands wider than shoulder width apart. Go slow." },
       {
@@ -105,5 +111,15 @@
     "notes": "Place hands shoulder width apart",
     "skillIds": ["balance", "focus"],
     "src": "https://functional-fitness.s3.amazonaws.com/exercises/push-up.png"
+  },
+  {
+    "id": "rest",
+    "author": "",
+    "equipmentIds": [],
+    "muscleGroupIds": [],
+    "name": "Rest",
+    "notes": "",
+    "skillIds": [],
+    "src": ""
   }
 ]

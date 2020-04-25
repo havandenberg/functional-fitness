@@ -40,7 +40,7 @@ const App = () => (
     <QueryParamProvider ReactRouterRoute={Route}>
       <GlobalContextProvider>
         <ThemeProvider theme={th}>
-          <Main>
+          <Main id="main">
             <Switch>
               <Route path="/live" component={undefined} />
               <Header />
