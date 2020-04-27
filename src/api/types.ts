@@ -33,7 +33,6 @@ export interface LiveExercise {
 
 export interface LiveSession {
   id: string;
-  activeIndex?: number;
   datetime: string;
   duration: string;
   exercises: LiveExercise[];

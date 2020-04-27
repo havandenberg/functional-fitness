@@ -8,6 +8,7 @@ import Exercise from 'components/exercise';
 import { Sticky } from 'components/header';
 import LiveIndicator from 'components/live-indicator';
 import ProgressBar from 'components/progress-bar';
+import { usePrevious } from 'hooks/use-previous';
 import { useLiveQueryParams } from 'hooks/use-query-params';
 import l from 'ui/layout';
 import th from 'ui/theme';
@@ -20,10 +21,19 @@ const Live = () => {
   const liveSession = find(propEq('id', liveId || '0'), liveSessions);
   const sessions = api.fetchSessions();
   const session = liveSession && find(propEq('id', liveSession.sessionId), sessions);
-  const isLive = liveSession && liveSession.activeIndex === activeIndex;
+
+  const [activeLiveIndex] = api.useFetchActiveLiveSessionIndex();
+  const isLive = activeLiveIndex >= 0 && activeIndex === activeLiveIndex;
+  const previousLiveIndex = usePrevious(activeLiveIndex);
   const exercises = api.fetchExercises();
   const activeLiveExercise = liveSession && liveSession.exercises[activeIndex];
   const activeExercise = activeLiveExercise && find(propEq('id', activeLiveExercise.exerciseId), exercises);
+
+  useEffect(() => {
+    if (previousLiveIndex === activeIndex) {
+      setActiveIndex(activeLiveIndex);
+    }
+  }, [activeIndex, activeLiveIndex, previousLiveIndex]);
 
   const getDuration = useCallback((activeLiveExercise?: api.LiveExercise) => {
     let time = activeLiveExercise ? activeLiveExercise.count.split(':') : [];
@@ -97,7 +107,7 @@ const Live = () => {
             <ty.Label>Session</ty.Label>
             <ty.Text center>{session.name}</ty.Text>
             <l.Div position="absolute" onClick={(e) => e.preventDefault()} right={th.spacing.sm} top={th.spacing.sm}>
-              <LiveIndicator live={isLive} onClick={() => setActiveIndex(liveSession.activeIndex || 0)} />
+              <LiveIndicator live={isLive} onClick={() => setActiveIndex(activeLiveIndex || 0)} />
             </l.Div>
           </l.Centered>
         </l.AreaLink>
