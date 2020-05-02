@@ -3,7 +3,7 @@
     "id": "0",
     "exercises": [
       { "alternateId": "", "count": "4", "exerciseId": "pull-up", "setCount": "2", "type": "reps" },
-      { "alternateId": "", "count": "1:00", "exerciseId": "rest", "setCount": "1", "type": "time" },
+      { "alternateId": "", "count": "5", "exerciseId": "rest", "setCount": "1", "type": "time" },
       { "alternateId": "", "count": "2:40", "exerciseId": "push-up", "setCount": "2", "type": "time" }
     ],
     "instructor": "Coach Halsey",
