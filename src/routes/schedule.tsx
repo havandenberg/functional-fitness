@@ -69,7 +69,7 @@ const Schedule = () => {
   return (
     <>
       <l.Centered my={th.spacing.lg}>
-        <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.tn}>
+        <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.sm}>
           Session Schedule
         </ty.H2>
         <l.Anchor

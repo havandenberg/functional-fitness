@@ -12,7 +12,7 @@ import th from 'ui/theme';
 import ty from 'ui/typography';
 import { findItemsByIds, getAllTags } from 'utils/tags';
 
-const Session = ({ datetime }: { datetime?: string }) => {
+const Session = () => {
   const sessions = api.fetchSessions();
   const { id } = useParams();
   const session = find(propEq('id', id), sessions as api.Session[]);

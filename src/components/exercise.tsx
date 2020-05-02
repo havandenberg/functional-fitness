@@ -38,7 +38,7 @@ const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, s
                       {name}
                     </ty.Text>
                   </l.FlexCentered>
-                  <l.Div bg={th.colors.background} flex={1} scroll>
+                  <l.Div bg={th.colors.background} flex={1} px={th.spacing.sm} scroll>
                     <l.Img pb={th.spacing.sm} src={src} width={th.sizes.fill} />
                     {notes && !isEmpty(notes) && (
                       <l.Div px={th.spacing.md} pb={th.spacing.lg}>

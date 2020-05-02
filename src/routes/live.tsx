@@ -68,8 +68,17 @@ const Live = () => {
 
   const [activeLiveIndex] = api.useFetchActiveLiveSessionIndex();
   const previousLiveIndex = usePrevious(activeLiveIndex);
-  const [activeIndex, setActiveIndex] = useState(activeLiveIndex >= 0 ? activeLiveIndex : 0);
-  const isLive = activeLiveIndex >= 0 && activeIndex === activeLiveIndex;
+  const initialLiveIndex =
+    activeLiveIndex >= 0
+      ? liveSession && activeLiveIndex < liveSession.exercises.length
+        ? liveSession.exercises.length - 1
+        : activeLiveIndex
+      : 0;
+  const [activeIndex, setActiveIndex] = useState(initialLiveIndex);
+  const isFirst = activeIndex === 0;
+  const isLast = liveSession && activeIndex === liveSession.exercises.length - 1;
+  const initialIsLive = activeLiveIndex >= 0 && activeIndex === activeLiveIndex;
+  const [isLive, setIsLive] = useState(initialIsLive);
 
   const exercises = api.fetchExercises();
   const activeLiveExercise = liveSession && liveSession.exercises[activeIndex];
@@ -87,8 +96,11 @@ const Live = () => {
     return duration;
   }, []);
 
-  const [duration, setDuration] = useState(getDuration(activeLiveExercise));
+  const initialDuration = getDuration(activeLiveExercise);
+  const [duration, setDuration] = useState(initialDuration);
   const [isActive, setIsActive] = useState(false);
+  const initialSetCount = activeLiveExercise && activeLiveExercise.setCount ? activeLiveExercise.setCount : 0;
+  const [setCount, setSetCount] = useState(initialSetCount);
 
   const getTime = (duration: number) => {
     const minutes = Math.floor(duration / 60);
@@ -96,12 +108,21 @@ const Live = () => {
     return minutes ? `${minutes}${seconds % 2 === 0 || !isActive ? ':' : ' '}${seconds || '00'}` : `${seconds}`;
   };
 
-  const decrement = () => {
+  const decrement = useCallback(async () => {
     const nextIndex = activeIndex - 1;
-    if (nextIndex >= 0) {
-      setActiveIndex(nextIndex);
+    if (liveSession && nextIndex >= 0) {
+      if (user) {
+        const LiveSession = Parse.Object.extend('LiveSession');
+        const query = new Parse.Query(LiveSession);
+        const results: any = await query.first();
+        results.increment('activeIndex');
+        results.save();
+      } else {
+        setActiveIndex(nextIndex);
+        setIsLive(false);
+      }
     }
-  };
+  }, [activeIndex, liveSession, user]);
 
   const increment = useCallback(async () => {
     const nextIndex = activeIndex + 1;
@@ -114,39 +135,58 @@ const Live = () => {
         results.save();
       } else {
         setActiveIndex(nextIndex);
+        setIsLive(false);
       }
     }
   }, [activeIndex, exercises.length, liveSession, user]);
 
   const reset = useCallback(() => {
-    setDuration(getDuration(activeLiveExercise));
+    setDuration(initialDuration);
     setIsActive(false);
-  }, [activeLiveExercise, getDuration]);
+  }, [initialDuration]);
 
   const toggleActive = useCallback(() => {
     setIsActive(!isActive);
   }, [isActive]);
 
+  const toggleLive = useCallback(() => {
+    if (!isLive) {
+      setActiveIndex(activeLiveIndex !== undefined ? activeLiveIndex : activeIndex);
+    }
+    setIsLive(!isLive);
+  }, [activeLiveIndex, activeIndex, isLive]);
+
   useEffect(() => {
-    if (previousLiveIndex === activeIndex || (previousLiveIndex === -1 && activeLiveIndex >= 0)) {
+    if (previousLiveIndex === activeIndex) {
       setActiveIndex(activeLiveIndex);
     }
-  }, [activeIndex, activeLiveIndex, previousLiveIndex]);
+    if (previousLiveIndex === -1 && activeLiveIndex >= 0) {
+      setActiveIndex(activeLiveIndex);
+      setIsLive(initialIsLive);
+    }
+  }, [activeIndex, activeLiveIndex, initialIsLive, previousLiveIndex]);
 
   useEffect(() => {
     if (activeLiveExercise && isTime) {
-      setDuration(getDuration(activeLiveExercise));
+      setDuration(initialDuration);
+      setSetCount(initialSetCount);
       setIsActive(true);
     } else {
       reset();
     }
-  }, [activeLiveExercise, getDuration, isTime, reset]);
+  }, [activeLiveExercise, initialDuration, initialSetCount, isTime, reset]);
 
   useEffect(() => {
     let interval: any = null;
     if (isActive) {
       interval = setInterval(() => {
-        if (duration === 0) {
+        if (duration === 1 && setCount > 1) {
+          setSetCount(setCount - 1);
+          reset();
+        } else if (duration === 1) {
+          setDuration((duration) => duration - 1);
+          setSetCount(0);
+        } else if (duration === 0) {
           clearInterval(interval);
           setIsActive(false);
         } else {
@@ -157,7 +197,7 @@ const Live = () => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isActive, duration]);
+  }, [duration, isActive, reset, setCount]);
 
   if (!activeExercise || !session || !activeLiveExercise || !liveSession) {
     return <Redirect to="/" />;
@@ -176,14 +216,14 @@ const Live = () => {
               </l.Div>
             )}
             <l.Div position="absolute" onClick={(e) => e.preventDefault()} right={12} top={th.spacing.sm}>
-              <LiveIndicator live={isLive} onClick={() => setActiveIndex(activeLiveIndex || activeIndex)} />
+              <LiveIndicator live={isLive} onClick={toggleLive} />
             </l.Div>
           </l.Centered>
         </l.AreaLink>
         <ProgressBar activeIndex={activeIndex} liveExercises={liveSession.exercises} />
         <l.FlexBetween bg="#3A3A3A" height={85}>
-          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={decrement}>
-            <l.Img src={previousImg} width={th.sizes.xs} />
+          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isFirst ? undefined : decrement}>
+            {!isFirst && <l.Img src={previousImg} width={th.sizes.xs} />}
           </l.Centered>
           <l.Centered width="80%">
             <ty.Label color={th.colors.white}>Active Exercise</ty.Label>
@@ -193,43 +233,49 @@ const Live = () => {
               </ty.H3>
             </l.Div>
           </l.Centered>
-          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={increment}>
-            <l.Img src={nextImg} width={th.sizes.xs} />
+          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isLast ? undefined : increment}>
+            {!isLast && <l.Img src={nextImg} width={th.sizes.xs} />}
           </l.Centered>
         </l.FlexBetween>
         <l.Flex bdb={th.borders.input}>
-          <l.Centered bdr={th.borders.input} flex={1} height={85}>
+          <l.Centered bdr={th.borders.input} flex={1} height={85} position="relative">
             <ty.Label>Sets</ty.Label>
             <ty.Text bold fontSize="30px">
-              {activeLiveExercise.setCount}
+              {setCount !== undefined ? setCount : activeLiveExercise.setCount}
             </ty.Text>
+            {isTime && setCount !== initialSetCount && (!isActive || setCount === 0) && (
+              <Reset
+                onClick={(e: React.ChangeEvent) => {
+                  e.stopPropagation();
+                  if (duration === 0) {
+                    reset();
+                  }
+                  setSetCount(initialSetCount);
+                }}
+                src={resetImg}
+              />
+            )}
           </l.Centered>
-          <l.Centered
-            flex={1}
-            height={85}
-            position="relative"
-            onClick={isTime ? toggleActive : undefined}
-            onDoubleClick={isTime ? reset : undefined}
-          >
+          <l.Centered flex={1} height={85} position="relative" onClick={isTime ? toggleActive : undefined}>
             <l.Div position="relative">
               <ty.Label>{activeLiveExercise.type}</ty.Label>
               {isTime && <TimeLabel>({duration < 60 ? 's' : 'min'})</TimeLabel>}
             </l.Div>
             <CountText>{getTime(duration) || activeLiveExercise.count}</CountText>
-            {isTime && duration > 0 && (
-              <TogglePlay
-                duration={duration}
-                isActive={isActive}
-                src={isActive || getDuration(activeLiveExercise) === duration ? playImg : pauseImg}
-              />
-            )}
-            {isTime && getDuration(activeLiveExercise) !== duration && (!isActive || duration === 0) && (
+            {isTime && duration !== initialDuration && (!isActive || duration === 0) && (
               <Reset
                 onClick={(e: React.ChangeEvent) => {
                   e.stopPropagation();
                   reset();
                 }}
                 src={resetImg}
+              />
+            )}
+            {isTime && duration > 0 && (
+              <TogglePlay
+                duration={duration}
+                isActive={isActive}
+                src={isActive || initialDuration === duration ? playImg : pauseImg}
               />
             )}
           </l.Centered>
