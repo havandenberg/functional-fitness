@@ -11,6 +11,7 @@ import { GlobalContextProvider } from 'context/global';
 import Exercises from 'routes/exercises';
 import Home from 'routes/home';
 import Live from 'routes/live';
+import Login from 'routes/login';
 import Schedule from 'routes/schedule';
 import Resources from 'routes/resources';
 import Session from 'routes/session';
@@ -50,6 +51,7 @@ const App = () => (
                 <Route exact path="/" component={Home} />
                 <Route exact path="/live" component={Live} />
                 <Route path="/live/:id" component={Live} />
+                <Route path="/login" component={Login} />
                 <Route path="/start" component={Start} />
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/exercises" component={Exercises} />

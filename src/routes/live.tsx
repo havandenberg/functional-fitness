@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Parse from 'parse';
 import { find, propEq } from 'ramda';
 import { Redirect } from 'react-router-dom';
 import * as api from 'api';
 import nextImg from 'assets/images/next.svg';
 import previousImg from 'assets/images/previous.svg';
+import userImg from 'assets/images/user.svg';
 import Exercise from 'components/exercise';
 import { Sticky } from 'components/header';
 import LiveIndicator from 'components/live-indicator';
 import ProgressBar from 'components/progress-bar';
+import { useGlobalContext } from 'context/global';
 import { usePrevious } from 'hooks/use-previous';
 import { useLiveQueryParams } from 'hooks/use-query-params';
 import l from 'ui/layout';
@@ -16,9 +19,10 @@ import ty from 'ui/typography';
 
 const Live = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [{ user }] = useGlobalContext();
   const [{ liveId }] = useLiveQueryParams();
-  const liveSessions = api.fetchLiveSessions();
-  const liveSession = find(propEq('id', liveId || '0'), liveSessions);
+  const liveSessionsContent = api.fetchLiveSessionsContent();
+  const liveSession = find(propEq('id', liveId || '0'), liveSessionsContent);
   const sessions = api.fetchSessions();
   const session = liveSession && find(propEq('id', liveSession.sessionId), sessions);
 
@@ -81,16 +85,20 @@ const Live = () => {
     return () => clearInterval(interval);
   }, [isActive, duration]);
 
-  if (!activeExercise || !session || !activeLiveExercise || !liveSession) {
-    return <Redirect to="/" />;
-  }
-
-  const increment = () => {
+  const increment = useCallback(async () => {
     const nextIndex = activeIndex + 1;
-    if (nextIndex < exercises.length && nextIndex < liveSession.exercises.length) {
-      setActiveIndex(nextIndex);
+    if (liveSession && nextIndex < exercises.length && nextIndex < liveSession.exercises.length) {
+      if (user) {
+        const LiveSession = Parse.Object.extend('LiveSession');
+        const query = new Parse.Query(LiveSession);
+        const results: any = await query.first();
+        results.increment('activeIndex');
+        results.save();
+      } else {
+        setActiveIndex(nextIndex);
+      }
     }
-  };
+  }, [activeIndex, exercises.length, liveSession, user]);
 
   const decrement = () => {
     const nextIndex = activeIndex - 1;
@@ -99,6 +107,10 @@ const Live = () => {
     }
   };
 
+  if (!activeExercise || !session || !activeLiveExercise || !liveSession) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <>
       <Sticky>
@@ -106,8 +118,13 @@ const Live = () => {
           <l.Centered pb={th.spacing.sm} pt={th.spacing.md} position="relative">
             <ty.Label>Session</ty.Label>
             <ty.Text center>{session.name}</ty.Text>
-            <l.Div position="absolute" onClick={(e) => e.preventDefault()} right={th.spacing.sm} top={th.spacing.sm}>
-              <LiveIndicator live={isLive} onClick={() => setActiveIndex(activeLiveIndex || 0)} />
+            {user && (
+              <l.Div position="absolute" right={56} top={12}>
+                <l.Img height={th.sizes.xs} src={userImg} />
+              </l.Div>
+            )}
+            <l.Div position="absolute" onClick={(e) => e.preventDefault()} right={12} top={th.spacing.sm}>
+              <LiveIndicator live={isLive} onClick={() => setActiveIndex(activeLiveIndex || activeIndex)} />
             </l.Div>
           </l.Centered>
         </l.AreaLink>

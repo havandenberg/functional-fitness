@@ -56,3 +56,19 @@ export interface Tag {
   src?: string;
   text: string;
 }
+
+export interface CalendarEventShape {
+  description: string;
+  end: {
+    dateTime?: string;
+    date?: string;
+  };
+  id: string;
+  location?: string;
+  recurrence?: string[];
+  start: {
+    dateTime?: string;
+    date?: string;
+  };
+  summary: string;
+}

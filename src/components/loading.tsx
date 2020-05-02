@@ -8,8 +8,8 @@ interface Props {
 }
 
 const Loading = ({ padding }: Props) => (
-  <l.FlexCentered p={padding || th.spacing.xxxl}>
-    <ClipLoader size={75} color={th.colors.gray} />
+  <l.FlexCentered p={padding || th.spacing.lg}>
+    <ClipLoader size={th.sizes.md} color={th.colors.gray} />
   </l.FlexCentered>
 );
 

@@ -21,6 +21,17 @@ const mungeLiveSessionData = (data: api.LiveSession, session: api.Session) => {
   };
 };
 
+const copyGCalLink = () => {
+  var dummy = document.createElement('textarea');
+  dummy.style.display = 'none';
+  document.body.appendChild(dummy);
+  dummy.value =
+    'https://calendar.google.com/calendar/ical/pa841r7rt7s923pmocsrdb38q0%40group.calendar.google.com/public/basic.ics';
+  dummy.select();
+  document.execCommand('copy');
+  document.body.removeChild(dummy);
+};
+
 const Schedule = () => {
   const [past, setPast] = useState(false);
   const columns = [
@@ -30,7 +41,8 @@ const Schedule = () => {
   ];
 
   const sessions = api.fetchSessions();
-  const liveSessions = api.fetchLiveSessions();
+  const [liveSessions, loading] = api.useFetchLiveSessions();
+
   const pastSessions = sortBy(
     prop('datetime'),
     filter(
@@ -52,11 +64,23 @@ const Schedule = () => {
       return session ? mungeLiveSessionData(liveSession, session) : undefined;
     }),
   );
+  const header = `Sessions ${loading ? '' : '(' + items.length + ')'}`;
 
   return (
     <>
       <l.Centered my={th.spacing.lg}>
-        <ty.H2 fontSize={th.fontSizes.h3}>Session Schedule</ty.H2>
+        <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.tn}>
+          Session Schedule
+        </ty.H2>
+        <l.Anchor
+          href="https://calendar.google.com/calendar/embed?src=pa841r7rt7s923pmocsrdb38q0%40group.calendar.google.com"
+          target="_blank"
+        >
+          <ty.Label>View in Google Calendar</ty.Label>
+        </l.Anchor>
+        <l.Div mt={th.spacing.tn} onClick={copyGCalLink}>
+          <ty.Label>Copy iCal link</ty.Label>
+        </l.Div>
       </l.Centered>
       <l.FlexBetween bdb={th.borders.input} bdt={th.borders.input} mb={th.spacing.lg}>
         <l.FlexCentered bdr={th.borders.input} flexBasis="50%" onClick={() => setPast(false)} py={th.spacing.sm}>
@@ -66,7 +90,7 @@ const Schedule = () => {
           <ty.Text active={past}>Past</ty.Text>
         </l.FlexCentered>
       </l.FlexBetween>
-      <List columns={columns} header={`Sessions (${items.length})`} isLoading={false} items={items} />
+      <List columns={columns} header={header} isLoading={loading} items={items} />
     </>
   );
 };

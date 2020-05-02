@@ -41,7 +41,7 @@ const Exercise = ({ equipmentIds, live, muscleGroupIds, name, notes, skillIds, s
                   <l.Div bg={th.colors.background} flex={1} scroll>
                     <l.Img pb={th.spacing.sm} src={src} width={th.sizes.fill} />
                     {notes && !isEmpty(notes) && (
-                      <l.Div px={th.spacing.sm} pb={th.spacing.lg}>
+                      <l.Div px={th.spacing.md} pb={th.spacing.lg}>
                         <Notes notes={notes} />
                       </l.Div>
                     )}

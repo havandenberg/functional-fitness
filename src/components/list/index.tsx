@@ -15,6 +15,7 @@ const Action = styled(l.FlexCentered)({
   },
   borderRadius: th.borderRadii.input,
   padding: th.spacing.sm,
+  transition: th.transitions.default,
 });
 
 const Grid = styled(l.Div)({
@@ -72,19 +73,22 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
           {hasContent && <l.Div flexBasis={EXPAND_BASIS} />}
           {hasTo && <l.Div flexBasis={TO_BASIS} />}
         </l.Flex>
-        {items.map((item, idx) => (
-          <Item
-            columnsInfo={columns}
-            expanded={expanded[idx]}
-            index={idx}
-            key={item.id}
-            showIndices={showIndices}
-            toggleExpanded={() => toggleExpanded(idx)}
-            {...item}
-          />
-        ))}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          items.map((item, idx) => (
+            <Item
+              columnsInfo={columns}
+              expanded={expanded[idx]}
+              index={idx}
+              key={`${item.id}-${idx}`}
+              showIndices={showIndices}
+              toggleExpanded={() => toggleExpanded(idx)}
+              {...item}
+            />
+          ))
+        )}
       </Grid>
-      {isLoading && <Loading />}
     </l.Div>
   );
 };

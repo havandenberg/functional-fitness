@@ -12,9 +12,5 @@ export const client = new Parse.LiveQueryClient({
 });
 client.open();
 
-export const login = async () => {
-  const user = await Parse.User.logIn('admin', 'admin');
-};
-
 export * from './hooks';
 export * from './types';

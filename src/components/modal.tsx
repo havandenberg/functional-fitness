@@ -26,15 +26,16 @@ const Overlay = styled(l.Flex)({
 });
 
 const StyledModal = styled(l.Div)({
-  borderRadius: th.borderRadii.input,
+  borderRadius: th.borderRadii.default,
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  margin: `0 ${th.spacing.md} ${th.spacing.md}`,
-  maxHeight: `calc(${th.sizes.fill} - 56px)`,
+  height: `calc(${th.sizes.fill} - 48px)`,
+  margin: `0 ${th.spacing.sm} ${th.spacing.sm}`,
+  maxHeight: `calc(${th.sizes.fill} - 48px)`,
   position: 'absolute',
   top: 40,
-  width: `calc(${th.sizes.fill} - ${th.spacing.lg})`,
+  width: `calc(${th.sizes.fill} - ${th.spacing.md})`,
 });
 
 const ModalContent = ({ children, hide }: { children: React.ReactNode; hide: () => void }) => {

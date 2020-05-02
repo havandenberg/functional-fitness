@@ -17,7 +17,7 @@ const Session = ({ datetime }: { datetime?: string }) => {
   const { id } = useParams();
   const session = find(propEq('id', id), sessions as api.Session[]);
 
-  const liveSessions = api.fetchLiveSessions();
+  const [liveSessions] = api.useFetchLiveSessions();
   const [{ liveId }] = useLiveQueryParams();
   const liveSession = find(propEq('id', liveId), liveSessions as api.LiveSession[]);
 

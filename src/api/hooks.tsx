@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Parse from 'parse';
 import * as api from '.';
 import data from 'content/data';
+import { expandRecurringEvents, getEvents } from 'utils/calendar-event';
 
 export const toExercise = (s: any) => s as api.Exercise;
 export const fetchExercises = () => data.exercises.map((e) => toExercise(e));
@@ -10,8 +11,24 @@ export const toSession = (s: any) => ({ ...s } as api.Session);
 export const fetchSessions = () => data.sessions.map((s) => toSession(s));
 
 export const toLiveSession = (r: any) => r as api.LiveSession;
-export const fetchLiveSessions = () => data.liveSessions.map((ls) => toLiveSession(ls));
+export const fetchLiveSessionsContent = () => data.liveSessions.map((ls) => toLiveSession(ls));
 
+export const useFetchLiveSessions = () => {
+  const [liveSessions, setLiveSessions] = useState<api.LiveSession[]>([]);
+  const [loading, setLoading] = useState(true);
+  const fetchLiveSessions = () => {
+    getEvents().then((data) => {
+      setLiveSessions(expandRecurringEvents(data.items));
+      setLoading(false);
+    });
+  };
+  useEffect(() => {
+    if (liveSessions.length === 0) {
+      fetchLiveSessions();
+    }
+  }, [liveSessions]);
+  return [liveSessions, loading] as const;
+};
 export const useFetchActiveLiveSessionIndex = () => {
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [loading, setLoading] = useState(true);

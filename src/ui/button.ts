@@ -29,7 +29,6 @@ export const Default = styled.button<DivProps & TextProps & ButtonProps & any>(
 const primaryStyles = {
   ...defaultStyles,
   background: th.colors.background,
-  border: th.borders.input,
   cursor: 'pointer',
   margin: 0,
   padding: 0,

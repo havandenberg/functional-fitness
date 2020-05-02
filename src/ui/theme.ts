@@ -18,7 +18,7 @@ export const colors = {
     inv: '#FFFFFF',
   },
   status: {
-    success: '#64A338',
+    success: '#11B92C',
     failure: '#E03B24',
     warning: '#FFCC00',
   },
