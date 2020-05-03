@@ -30,7 +30,11 @@ const Header = () => {
   return (
     <Sticky root={pathname === '/'}>
       <Link type="area" to="/" width={th.sizes.fill}>
-        <l.FlexColumn bdb={th.borders.input} py={th.spacing.md}>
+        <l.FlexColumn
+          bdb={th.borders.input}
+          boxShadow={pathname === '/' ? `0 -6px 15px 0px ${th.colors.black}` : undefined}
+          py={th.spacing.md}
+        >
           <ty.H1>Functional Fitness</ty.H1>
           <ty.Text>For All</ty.Text>
         </l.FlexColumn>

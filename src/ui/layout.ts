@@ -1,6 +1,7 @@
 import {
   BackgroundSetProps,
   BorderSetProps,
+  BoxShadowProps,
   DisplaySetProps,
   FlexSetProps,
   GridSetProps,
@@ -9,11 +10,13 @@ import {
   PositionSetProps,
   SizeProps,
   SpaceSetProps,
+  TextShadowProps,
   TransformSetProps,
   TransitionProps,
   WidthProps,
   backgroundSet,
   borderSet,
+  boxShadow,
   displaySet,
   flexSet,
   gridSet,
@@ -22,6 +25,7 @@ import {
   positionSet,
   size,
   spaceSet,
+  textShadow,
   transformSet,
   transition,
   width,
@@ -46,12 +50,14 @@ interface CustomDivProps {
 }
 export type DivProps = BackgroundSetProps &
   BorderSetProps &
+  BoxShadowProps &
   DisplaySetProps &
   FlexSetProps &
   GridSetProps &
   LayoutSetProps &
   PositionSetProps &
   SpaceSetProps &
+  TextShadowProps &
   TransformSetProps &
   CustomDivProps;
 
@@ -86,11 +92,13 @@ const customOptions: (props: CustomDivProps) => any = ({
 export const divPropsSet = [
   backgroundSet,
   borderSet,
+  boxShadow,
   displaySet,
   flexSet,
   gridSet,
   layoutSet,
   spaceSet,
+  textShadow,
   transformSet,
   positionSet,
   customOptions,

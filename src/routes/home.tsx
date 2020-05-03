@@ -7,6 +7,7 @@ import infoImg from 'assets/images/info.svg';
 import resourcesImg from 'assets/images/resources.svg';
 import scheduleImg from 'assets/images/schedule.svg';
 import zoomImg from 'assets/images/zoom.png';
+import Loading from 'components/loading';
 import { useGlobalContext } from 'context/global';
 import b from 'ui/button';
 import l from 'ui/layout';
@@ -26,7 +27,7 @@ const Quadrant = ({ src, text, to, ...rest }: { src: string; text: string; to: s
 
 const Home = () => {
   const [{ user }, { logout }] = useGlobalContext();
-  const [liveSessions] = api.useFetchLiveSessions();
+  const [liveSessions, loading] = api.useFetchLiveSessions();
   const activeLiveSessions = liveSessions && liveSessions.filter((liveSession) => liveSession.isLive);
   const upcomingSessions = getUpcomingSessions(liveSessions);
   return (
@@ -79,6 +80,8 @@ const Home = () => {
                   </ty.Text>
                 </l.Centered>
               </l.AreaLink>
+            ) : loading ? (
+              <Loading />
             ) : (
               <ty.Text>No upcoming sessions.</ty.Text>
             )}
