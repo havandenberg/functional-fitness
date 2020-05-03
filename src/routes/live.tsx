@@ -120,7 +120,7 @@ const Live = () => {
         const LiveSession = Parse.Object.extend('LiveSession');
         const query = new Parse.Query(LiveSession);
         const results: any = await query.first();
-        results.increment('activeIndex');
+        results.decrement('activeIndex');
         results.save();
       } else {
         setActiveIndex(nextIndex);
