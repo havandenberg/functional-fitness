@@ -82,6 +82,7 @@ const Label = styled(StyledText)<TextProps & any>(
   {
     color: th.colors.brand.primary,
     fontSize: th.fontSizes.sm,
+    letterSpacing: '0.6px',
     textTransform: 'uppercase',
   },
   textPropsSet,

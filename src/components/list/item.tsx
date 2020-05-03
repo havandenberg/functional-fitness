@@ -118,6 +118,7 @@ const Item = ({
             }
           : undefined
       }
+      pointer={!!to || !!content}
       to={to}
       type="area"
     >

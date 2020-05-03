@@ -40,12 +40,12 @@ const Resource = ({ notes, src, tagIds, title, to, typeIds }: api.Resource) => {
               toggle={<l.Img src={src} width={th.sizes.fill} />}
               content={
                 <>
-                  <l.FlexCentered bg={th.colors.background}>
+                  <l.FlexCentered>
                     <ty.Text center fontSize={th.fontSizes.h3} mb={th.spacing.md} mt={th.spacing.sm}>
                       {title}
                     </ty.Text>
                   </l.FlexCentered>
-                  <l.Div bg={th.colors.background} flex={1} px={th.spacing.sm} scroll>
+                  <l.Div flex={1} maxWidth={700} mx="auto" px={th.spacing.sm} scroll>
                     <l.Img pb={th.spacing.sm} src={src} width={th.sizes.fill} />
                     {notes && !isEmpty(notes) && (
                       <l.Div px={th.spacing.md} pb={th.spacing.lg}>

@@ -1,27 +1,37 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import moment from 'moment';
-import { find, isEmpty, propEq } from 'ramda';
+import { find, includes, indexOf, isEmpty, pluck, propEq } from 'ramda';
 import { Redirect, useParams } from 'react-router-dom';
 import * as api from 'api';
+import nextImg from 'assets/images/next-dark.svg';
+import previousImg from 'assets/images/previous-dark.svg';
+import LiveIndicator from 'components/live-indicator';
+import Loading from 'components/loading';
 import TagSet from 'components/tag-set';
 import { mungeExerciseData } from 'routes/exercises';
-import { useLiveQueryParams } from 'hooks/use-query-params';
+import { getPastSessions, getUpcomingSessions } from 'routes/schedule';
 import l from 'ui/layout';
 import List from 'components/list';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 import { findItemsByIds, getAllTags } from 'utils/tags';
 
+const DateText = styled(ty.Text)<{ isPast?: boolean }>(({ isPast }) => ({ opacity: isPast ? 0.5 : 1 }));
+
 const Session = () => {
-  const sessions = api.fetchSessions();
   const { id } = useParams();
-  const session = find(propEq('id', id), sessions as api.Session[]);
+  const [liveSessions, loading] = api.useFetchLiveSessions();
+  const liveSession = find(propEq('id', id), liveSessions);
 
-  const [liveSessions] = api.useFetchLiveSessions();
-  const [{ liveId }] = useLiveQueryParams();
-  const liveSession = find(propEq('id', liveId), liveSessions as api.LiveSession[]);
+  const sessions = api.fetchSessions();
+  const session = liveSession && find(propEq('id', liveSession.sessionId), sessions);
 
-  if (!session) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!liveSession || !session) {
     return <Redirect to="/" />;
   }
   const { author, exerciseIds, name, notes } = session;
@@ -29,6 +39,16 @@ const Session = () => {
     { title: 'Name', styles: { flex: 1 } },
     { title: 'Focus Areas', styles: { flex: 1 } },
   ];
+
+  const pastSessions = getPastSessions(liveSessions);
+  const upcomingSessions = getUpcomingSessions(liveSessions);
+  const isPast = includes(liveSession.id, pluck('id', pastSessions));
+  const sessionsByTime = isPast ? pastSessions : upcomingSessions;
+  const liveSessionIndex = indexOf(liveSession.id, pluck('id', sessionsByTime));
+  const isFirst = liveSessionIndex === 0;
+  const isLast = liveSessionIndex === sessionsByTime.length - 1;
+  const nextSession = isLast ? undefined : sessionsByTime[liveSessionIndex + 1];
+  const previousSession = isFirst ? undefined : sessionsByTime[liveSessionIndex - 1];
 
   const allExercises = api.fetchExercises();
   const exercises = findItemsByIds<api.Exercise>(exerciseIds, allExercises);
@@ -40,15 +60,35 @@ const Session = () => {
 
   return (
     <>
-      <l.Centered mb={th.spacing.md} mt={th.spacing.lg}>
-        <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.tn}>
-          {name}
-        </ty.H2>
+      <l.FlexBetween mt={th.spacing.lg}>
+        <l.AreaLink flexBasis="10%" to={isFirst || !previousSession ? '/schedule' : `/sessions/${previousSession.id}`}>
+          <l.Centered height={th.sizes.md}>
+            <l.Img src={previousImg} width={th.sizes.xs} />
+          </l.Centered>
+        </l.AreaLink>
+        <l.Scroll showScrollBar={false} width="80%">
+          <ty.H2 center fontSize={th.fontSizes.h3} nowrap>
+            {liveSession.name || name}
+          </ty.H2>
+        </l.Scroll>
+        <l.AreaLink flexBasis="10%" to={isLast || !nextSession ? '#' : `/sessions/${nextSession.id}`}>
+          <l.Centered height={th.sizes.md}>{!isLast && <l.Img src={nextImg} width={th.sizes.xs} />}</l.Centered>
+        </l.AreaLink>
+      </l.FlexBetween>
+      <l.Centered mb={th.spacing.lg}>
+        {liveSession.isLive && (
+          <l.AreaLink my={th.spacing.sm} to="/live">
+            <LiveIndicator live />
+          </l.AreaLink>
+        )}
         {liveSession && (
-          <ty.Text>
-            {moment(liveSession.datetime).format('ddd MM/DD')} <l.Primary>at</l.Primary>{' '}
-            {moment(liveSession.datetime).format('hh:mma')} <l.Primary>(EST)</l.Primary>
-          </ty.Text>
+          <>
+            <DateText isPast={isPast} my={th.spacing.sm}>
+              {moment(liveSession.start).format('ddd MM/DD')} <l.Primary>at</l.Primary>{' '}
+              {moment(liveSession.start).format('hh:mma')} <l.Primary>(EST)</l.Primary>
+            </DateText>
+            <DateText isPast={isPast}>{liveSession.duration}</DateText>
+          </>
         )}
       </l.Centered>
       <l.Div mx={th.spacing.md}>

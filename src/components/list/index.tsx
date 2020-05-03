@@ -14,6 +14,7 @@ const Action = styled(l.FlexCentered)({
     background: th.colors.brand.primaryHighlight,
   },
   borderRadius: th.borderRadii.input,
+  cursor: 'pointer',
   padding: th.spacing.sm,
   transition: th.transitions.default,
 });

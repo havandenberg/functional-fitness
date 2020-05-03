@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useLocation } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
+import * as api from 'api';
 import LiveIndicator from 'components/live-indicator';
 import Nav from 'components/nav';
 import l from 'ui/layout';
@@ -24,6 +25,8 @@ export const Sticky = styled(l.Div)<{ root?: boolean }>(
 
 const Header = () => {
   const { pathname } = useLocation();
+  const [liveSessions] = api.useFetchLiveSessions();
+  const activeLiveSessions = liveSessions && liveSessions.filter((liveSession) => liveSession.isLive);
   return (
     <Sticky root={pathname === '/'}>
       <Link type="area" to="/" width={th.sizes.fill}>
@@ -36,9 +39,11 @@ const Header = () => {
         <Route exact path="/" component={undefined} />
         <>
           <Nav />
-          <l.AreaLink position="absolute" to="/live" top={th.spacing.sm} right={th.spacing.sm}>
-            <LiveIndicator />
-          </l.AreaLink>
+          {activeLiveSessions.length > 1 && (
+            <l.AreaLink position="absolute" to="/live" top={th.spacing.sm} right={th.spacing.sm}>
+              <LiveIndicator />
+            </l.AreaLink>
+          )}
         </>
       </Switch>
     </Sticky>

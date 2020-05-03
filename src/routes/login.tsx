@@ -50,7 +50,7 @@ const Login = () => {
           />
         </l.Div>
         <b.Default bg={th.colors.brand.primary} p={th.spacing.sm} type="submit">
-          <ty.Label color={th.colors.white} fontSize={th.fontSizes.sm}>
+          <ty.Label bold color={th.colors.white} fontSize={12}>
             Login
           </ty.Label>
         </b.Default>

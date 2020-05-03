@@ -33,11 +33,14 @@ export interface LiveExercise {
 
 export interface LiveSession {
   id: string;
-  datetime: string;
   duration: string;
+  end: string;
   exercises: LiveExercise[];
   instructor: string;
+  isLive?: boolean;
+  name?: string;
   sessionId: string;
+  start: string;
 }
 
 export interface Resource {

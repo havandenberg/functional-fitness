@@ -29,6 +29,7 @@ const CountText = styled(ty.Text)({
 
 const TogglePlay = styled(l.Img)<{ duration: number; isActive: boolean }>(
   {
+    cursor: 'pointer',
     height: th.sizes.xs,
     position: 'absolute',
     right: th.spacing.md,
@@ -42,6 +43,7 @@ const TogglePlay = styled(l.Img)<{ duration: number; isActive: boolean }>(
 );
 
 const Reset = styled(l.Img)({
+  cursor: 'pointer',
   height: th.sizes.xs,
   position: 'absolute',
   left: th.spacing.md,
@@ -70,9 +72,11 @@ const Live = () => {
   const previousLiveIndex = usePrevious(activeLiveIndex);
   const initialLiveIndex =
     activeLiveIndex >= 0
-      ? liveSession && activeLiveIndex < liveSession.exercises.length
-        ? liveSession.exercises.length - 1
-        : activeLiveIndex
+      ? liveSession
+        ? activeLiveIndex < liveSession.exercises.length
+          ? activeLiveIndex
+          : liveSession.exercises.length - 1
+        : 0
       : 0;
   const [activeIndex, setActiveIndex] = useState(initialLiveIndex);
   const isFirst = activeIndex === 0;
@@ -157,14 +161,11 @@ const Live = () => {
   }, [activeLiveIndex, activeIndex, isLive]);
 
   useEffect(() => {
-    if (previousLiveIndex === activeIndex) {
-      setActiveIndex(activeLiveIndex);
-    }
-    if (previousLiveIndex === -1 && activeLiveIndex >= 0) {
+    if (previousLiveIndex === activeIndex || (previousLiveIndex === -1 && activeLiveIndex >= 0)) {
       setActiveIndex(activeLiveIndex);
       setIsLive(initialIsLive);
     }
-  }, [activeIndex, activeLiveIndex, initialIsLive, previousLiveIndex]);
+  }, [activeIndex, activeLiveIndex, initialIsLive, isLive, previousLiveIndex]);
 
   useEffect(() => {
     if (activeLiveExercise && isTime) {
@@ -209,7 +210,7 @@ const Live = () => {
         <l.AreaLink to={`/sessions/${liveSession.sessionId}`}>
           <l.Centered pb={th.spacing.sm} pt={th.spacing.md} position="relative">
             <ty.Label>View Session</ty.Label>
-            <ty.Text center>{session.name}</ty.Text>
+            <ty.Text center>{liveSession.name || session.name}</ty.Text>
             {user && (
               <l.Div position="absolute" right={56} top={12}>
                 <l.Img height={th.sizes.xs} src={userImg} />
@@ -222,7 +223,7 @@ const Live = () => {
         </l.AreaLink>
         <ProgressBar activeIndex={activeIndex} liveExercises={liveSession.exercises} />
         <l.FlexBetween bg="#3A3A3A" height={85}>
-          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isFirst ? undefined : decrement}>
+          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isFirst ? undefined : decrement} pointer>
             {!isFirst && <l.Img src={previousImg} width={th.sizes.xs} />}
           </l.Centered>
           <l.Centered width="80%">
@@ -233,7 +234,7 @@ const Live = () => {
               </ty.H3>
             </l.Div>
           </l.Centered>
-          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isLast ? undefined : increment}>
+          <l.Centered flexBasis="10%" height={th.sizes.fill} onClick={isLast ? undefined : increment} pointer>
             {!isLast && <l.Img src={nextImg} width={th.sizes.xs} />}
           </l.Centered>
         </l.FlexBetween>
@@ -256,7 +257,13 @@ const Live = () => {
               />
             )}
           </l.Centered>
-          <l.Centered flex={1} height={85} position="relative" onClick={isTime ? toggleActive : undefined}>
+          <l.Centered
+            flex={1}
+            height={85}
+            position="relative"
+            onClick={isTime ? toggleActive : undefined}
+            pointer={isTime}
+          >
             <l.Div position="relative">
               <ty.Label>{activeLiveExercise.type}</ty.Label>
               {isTime && <TimeLabel>({duration < 60 ? 's' : 'min'})</TimeLabel>}

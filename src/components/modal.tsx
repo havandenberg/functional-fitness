@@ -26,7 +26,9 @@ const Overlay = styled(l.Flex)({
 });
 
 const StyledModal = styled(l.Div)({
-  borderRadius: th.borderRadii.default,
+  background: th.colors.background,
+  borderRadius: th.borderRadii.input,
+  cursor: 'pointer',
   display: 'flex',
   flexDirection: 'column',
   flex: 1,

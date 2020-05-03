@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
+import styled from '@emotion/styled';
 import moment from 'moment';
 import { filter, find, prop, propEq, sortBy } from 'ramda';
 import * as api from 'api';
 import List from 'components/list';
+import LiveIndicator from 'components/live-indicator';
 import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 
-const mungeLiveSessionData = (data: api.LiveSession, session: api.Session) => {
-  const { id, datetime } = data;
-  const { name } = session;
-  return {
-    id,
-    columns: [
-      moment(datetime).format('ddd MM/DD'),
-      moment(datetime).format('hh:mma'),
-      <ty.Text fontWeight={th.fontWeights.semiBold}>{name}</ty.Text>,
-    ],
-    to: `/sessions/${id}?liveId=${id}`,
-  };
-};
+const LiveWrapper = styled(l.Div)({
+  position: 'fixed',
+  right: 22,
+  transform: 'translateY(-2px)',
+});
 
 const copyGCalLink = () => {
   var dummy = document.createElement('textarea');
@@ -32,31 +26,54 @@ const copyGCalLink = () => {
   document.body.removeChild(dummy);
 };
 
+export const getPastSessions = (liveSessions: api.LiveSession[]) =>
+  sortBy(
+    prop('start'),
+    filter((session) => moment().diff(moment(session.end)) > 0, liveSessions),
+  ).reverse();
+
+export const getUpcomingSessions = (liveSessions: api.LiveSession[]) =>
+  sortBy(
+    prop('start'),
+    filter((session) => moment().diff(moment(session.end)) <= 0, liveSessions),
+  );
+
+const mungeLiveSessionData = (data: api.LiveSession, session: api.Session) => {
+  const { id, start, isLive, name: liveSessionName } = data;
+  const { name: sessionName } = session;
+  return {
+    id,
+    columns: [
+      moment(start).format('ddd MM/DD'),
+      moment(start).format('hh:mma'),
+      <>
+        <l.FlexBetween position="relative" pr={isLive ? 37 : undefined}>
+          <ty.Text fontWeight={th.fontWeights.semiBold}>{liveSessionName || sessionName}</ty.Text>
+        </l.FlexBetween>
+        {isLive && (
+          <LiveWrapper>
+            <LiveIndicator live />
+          </LiveWrapper>
+        )}
+      </>,
+    ],
+    to: `/sessions/${id}`,
+  };
+};
+
 const Schedule = () => {
   const [past, setPast] = useState(false);
   const columns = [
     { title: 'Date', styles: { flexBasis: '85px' } },
     { title: 'Time (EST)', styles: { flexBasis: '70px' } },
-    { title: 'Name', styles: { flexGrow: 1 } },
+    { title: 'Name', styles: { flex: 1 } },
   ];
 
   const sessions = api.fetchSessions();
   const [liveSessions, loading] = api.useFetchLiveSessions();
 
-  const pastSessions = sortBy(
-    prop('datetime'),
-    filter(
-      (session) => moment().startOf('day').diff(moment(session.datetime).startOf('day')) > 0,
-      liveSessions as api.LiveSession[],
-    ),
-  ).reverse();
-  const upcomingSessions = sortBy(
-    prop('datetime'),
-    filter(
-      (session) => moment().startOf('day').diff(moment(session.datetime).startOf('day')) <= 0,
-      liveSessions as api.LiveSession[],
-    ),
-  );
+  const pastSessions = getPastSessions(liveSessions);
+  const upcomingSessions = getUpcomingSessions(liveSessions);
   const items: any[] = filter(
     (liveSession) => !!liveSession,
     (past ? pastSessions : upcomingSessions).map((liveSession) => {
@@ -74,19 +91,26 @@ const Schedule = () => {
         </ty.H2>
         <l.Anchor
           href="https://calendar.google.com/calendar/embed?src=pa841r7rt7s923pmocsrdb38q0%40group.calendar.google.com"
+          mb={th.spacing.sm}
           target="_blank"
         >
           <ty.Label>View in Google Calendar</ty.Label>
         </l.Anchor>
-        <l.Div mt={th.spacing.tn} onClick={copyGCalLink}>
+        <l.Div mt={th.spacing.tn} onClick={copyGCalLink} pointer>
           <ty.Label>Copy iCal link</ty.Label>
         </l.Div>
       </l.Centered>
       <l.FlexBetween bdb={th.borders.input} bdt={th.borders.input} mb={th.spacing.lg}>
-        <l.FlexCentered bdr={th.borders.input} flexBasis="50%" onClick={() => setPast(false)} py={th.spacing.sm}>
+        <l.FlexCentered
+          bdr={th.borders.input}
+          flexBasis="50%"
+          onClick={() => setPast(false)}
+          pointer
+          py={th.spacing.sm}
+        >
           <ty.Text active={!past}>Upcoming</ty.Text>
         </l.FlexCentered>
-        <l.FlexCentered flexBasis="50%" onClick={() => setPast(true)} py={th.spacing.sm}>
+        <l.FlexCentered flexBasis="50%" onClick={() => setPast(true)} pointer py={th.spacing.sm}>
           <ty.Text active={past}>Past</ty.Text>
         </l.FlexCentered>
       </l.FlexBetween>

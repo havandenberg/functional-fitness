@@ -3,7 +3,7 @@ import { find, isEmpty, propEq } from 'ramda';
 import { rrulestr } from 'rrule';
 import * as api from 'api';
 
-const MAX_RECURRENCES = 200;
+const MAX_RECURRENCES = 3;
 
 const GET_CAL_URL = (calID: string, key: string) =>
   `https://www.googleapis.com/calendar/v3/calendars/${calID}/events?fields=items(summary,id,location,start,end,recurrence,description)&key=${key}`;
@@ -29,24 +29,32 @@ export const expandRecurringEvents: (events: api.CalendarEventShape[]) => api.Li
         .all((date: Date, i: number) => i < MAX_RECURRENCES)
         .map((date: Date) => {
           const liveSessionContent = find(propEq('id', id), liveSessionsContent);
+          const isLive = moment().isBetween(moment.utc(date), moment.utc(date).add(minDiff, 'minutes'), 'minute');
           if (liveSessionContent) {
             liveSessions.push({
               ...liveSessionContent,
-              datetime: startMoment.toISOString(),
-              id,
               duration: `${minDiff} min`,
+              end: moment.utc(date).add(minDiff, 'minutes').toISOString(),
+              id: `${liveSessions.length}`,
+              isLive,
+              name: event.summary,
+              start: date.toISOString(),
             });
           }
           return null;
         });
     } else {
       const liveSessionContent = find(propEq('id', id), liveSessionsContent);
+      const isLive = moment().isBetween(startMoment, endMoment, 'minute');
       if (liveSessionContent) {
         liveSessions.push({
           ...liveSessionContent,
-          datetime: startMoment.toISOString(),
-          id,
           duration: `${minDiff} min`,
+          end: endMoment.toISOString(),
+          id: `${liveSessions.length}`,
+          isLive,
+          name: event.summary,
+          start: startMoment.toISOString(),
         });
       }
     }
