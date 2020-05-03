@@ -54,7 +54,7 @@ const ModalContent = ({ children, hide }: { children: React.ReactNode; hide: () 
           }}
         >
           <Close src={closeImg} />
-          <StyledModal>{children}</StyledModal>
+          <StyledModal scroll>{children}</StyledModal>
         </Overlay>,
         modalNode,
       )
