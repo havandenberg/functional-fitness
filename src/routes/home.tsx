@@ -49,7 +49,7 @@ const Home = () => {
             </l.Anchor>
             <l.AreaLink mb={24} to="/live">
               <b.Primary bg={th.colors.status.success} color={th.colors.white}>
-                <ty.Label bold color={th.colors.white} fontSize={12}>
+                <ty.Label color={th.colors.white} fontSize={12}>
                   Live Session Tracker
                 </ty.Label>
               </b.Primary>
