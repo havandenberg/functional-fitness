@@ -39,11 +39,11 @@ const Home = () => {
           <>
             <l.Anchor mb={24} href={`https://zoom.us/j/${process.env.REACT_APP_ZOOM_ID}`} target="_blank">
               <l.Flex alignEnd>
-                <ty.Label bold fontSize={12} mr="6px">
+                <ty.Label bold fontSize={13} mr="4px">
                   Join
                 </ty.Label>
-                <l.Img height={th.sizes.md} mb={th.spacing.tn} src={zoomImg} />
-                <ty.Label bold fontSize={12} ml="6px">
+                <l.Img height={th.sizes.md} mb="3px" src={zoomImg} />
+                <ty.Label bold fontSize={13} ml="5px">
                   Room
                 </ty.Label>
               </l.Flex>
