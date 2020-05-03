@@ -11,8 +11,9 @@ import th from 'ui/theme';
 import ty from 'ui/typography';
 
 const LiveWrapper = styled(l.Div)({
-  position: 'fixed',
+  position: 'absolute',
   right: 22,
+  top: th.spacing.sm,
   transform: 'translateY(-2px)',
 });
 
@@ -48,7 +49,7 @@ const mungeLiveSessionData = (data: api.LiveSession, session: api.Session) => {
       moment(start).format('ddd MM/DD'),
       moment(start).format('hh:mma'),
       <>
-        <l.FlexBetween position="relative" pr={isLive ? 37 : undefined}>
+        <l.FlexBetween pr={isLive ? 37 : undefined}>
           <ty.Text fontWeight={th.fontWeights.semiBold}>{liveSessionName || sessionName}</ty.Text>
         </l.FlexBetween>
         {isLive && (

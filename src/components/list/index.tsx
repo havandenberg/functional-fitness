@@ -49,7 +49,7 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
   return (
     <l.Div mb={th.spacing.xl}>
       {header && (
-        <l.FlexBetween mb={th.spacing.md} mx={th.spacing.md}>
+        <l.FlexBetween mb={th.spacing.md} mx={th.spacing.sm}>
           <ty.Text size="large">{header}</ty.Text>
           {hasContent && (
             <l.Flex>
@@ -67,7 +67,7 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
         <l.Flex bdb={th.borders.input}>
           {showIndices && <l.Div flexBasis={INDEX_BASIS + 4} />}
           {columns.map((col) => (
-            <l.Div {...col.styles} key={col.title} mb={th.spacing.tn} pl={th.spacing.md}>
+            <l.Div {...col.styles} key={col.title} mb={th.spacing.tn} pl={th.spacing.sm}>
               <ty.Label flex={1}>{col.title}</ty.Label>
             </l.Div>
           ))}

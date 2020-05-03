@@ -10,18 +10,19 @@ import zoomImg from 'assets/images/zoom.png';
 import Loading from 'components/loading';
 import ScrollToTopController from 'components/scroll-controller';
 import { useGlobalContext } from 'context/global';
+import { getUpcomingSessions } from 'routes/schedule';
 import b from 'ui/button';
 import l from 'ui/layout';
 import Link from 'ui/link';
 import th from 'ui/theme';
 import ty from 'ui/typography';
-import { getUpcomingSessions } from './schedule';
+import { isTiny } from 'ui/utils';
 
 const Quadrant = ({ src, text, to, ...rest }: { src: string; text: string; to: string } & BorderSetProps) => (
   <Link type="area" to={to} flexBasis="50%">
     <l.Centered padding={`${th.spacing.lg} 0`} {...rest}>
       <l.Img height={th.sizes.lg} mb={th.spacing.md} src={src} />
-      <ty.Text size="large">{text}</ty.Text>
+      <ty.Text fontSize={isTiny() ? th.fontSizes.nm : th.fontSizes.lg}>{text}</ty.Text>
     </l.Centered>
   </Link>
 );

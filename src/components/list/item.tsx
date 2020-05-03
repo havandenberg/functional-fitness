@@ -119,6 +119,7 @@ const Item = ({
           : undefined
       }
       pointer={!!to || !!content}
+      position="relative"
       to={to}
       type="area"
     >
@@ -128,7 +129,7 @@ const Item = ({
         </IndexWrapper>
       )}
       {content && expanded ? (
-        <Cell flex={1} ml={showIndices ? th.spacing.sm : th.spacing.md}>
+        <Cell flex={1} ml={th.spacing.sm}>
           {content}
         </Cell>
       ) : (
@@ -136,7 +137,7 @@ const Item = ({
           <Cell
             {...columnsInfo[i].styles}
             key={`${id}${i}`}
-            ml={showIndices && !i ? th.spacing.sm : th.spacing.md}
+            ml={th.spacing.sm}
             scroll={columnsInfo[i].scroll === undefined || columnsInfo[i].scroll}
           >
             {col}
