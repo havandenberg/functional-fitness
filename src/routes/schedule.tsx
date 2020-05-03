@@ -5,6 +5,7 @@ import { filter, find, prop, propEq, sortBy } from 'ramda';
 import * as api from 'api';
 import List from 'components/list';
 import LiveIndicator from 'components/live-indicator';
+import ScrollToTopController from 'components/scroll-controller';
 import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
@@ -115,6 +116,7 @@ const Schedule = () => {
         </l.FlexCentered>
       </l.FlexBetween>
       <List columns={columns} header={header} isLoading={loading} items={items} />
+      <ScrollToTopController />
     </>
   );
 };

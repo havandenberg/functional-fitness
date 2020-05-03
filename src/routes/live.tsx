@@ -14,6 +14,7 @@ import Exercise from 'components/exercise';
 import { Sticky } from 'components/header';
 import LiveIndicator from 'components/live-indicator';
 import ProgressBar from 'components/progress-bar';
+import ScrollToTopController from 'components/scroll-controller';
 import { useGlobalContext } from 'context/global';
 import { usePrevious } from 'hooks/use-previous';
 import { useLiveQueryParams } from 'hooks/use-query-params';
@@ -291,6 +292,7 @@ const Live = () => {
       <l.Div my={th.spacing.lg} mx={th.spacing.md}>
         <Exercise {...activeExercise} live />
       </l.Div>
+      <ScrollToTopController />
     </>
   );
 };

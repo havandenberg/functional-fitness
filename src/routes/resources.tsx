@@ -3,6 +3,7 @@ import { any, contains, isEmpty, pick, reduce, values } from 'ramda';
 import * as api from 'api';
 import List from 'components/list';
 import Resource, { ResourceLink } from 'components/resource';
+import ScrollToTopController from 'components/scroll-controller';
 import Search from 'components/search';
 import TagSet, { TagWrapper } from 'components/tag-set';
 import Tag from 'components/tag';
@@ -72,6 +73,7 @@ const Resources = () => {
       <TagSet enabledTags={enabledTagTags} label="Tags" tags={tagTags} toggleTag={toggleTagTag} />
       <l.Div height={th.spacing.md} />
       <List header={`Resources (${items.length})`} columns={columns} isLoading={false} items={items} />
+      <ScrollToTopController />
     </>
   );
 };

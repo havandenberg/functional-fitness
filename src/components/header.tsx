@@ -44,7 +44,7 @@ const Header = () => {
         <Route exact path="/" component={undefined} />
         <>
           <Nav />
-          {activeLiveSessions.length > 1 && (
+          {activeLiveSessions.length > 0 && (
             <l.AreaLink position="absolute" to="/live" top={th.spacing.sm} right={th.spacing.sm}>
               <LiveIndicator />
             </l.AreaLink>

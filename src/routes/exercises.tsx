@@ -3,6 +3,7 @@ import { any, contains, isEmpty, pick, reduce, values } from 'ramda';
 import * as api from 'api';
 import List from 'components/list';
 import Exercise from 'components/exercise';
+import ScrollToTopController from 'components/scroll-controller';
 import Search from 'components/search';
 import Tag from 'components/tag';
 import TagSet, { TagWrapper } from 'components/tag-set';
@@ -90,6 +91,7 @@ const Exercises = () => {
       <TagSet enabledTags={enabledEquipmentTags} label="Equipment" tags={equipmentIds} toggleTag={toggleEquipmentTag} />
       <l.Div height={th.spacing.md} />
       <List columns={columns} header={`Exercises (${items.length})`} isLoading={false} items={items} />
+      <ScrollToTopController />
     </>
   );
 };

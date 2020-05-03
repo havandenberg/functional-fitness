@@ -8,6 +8,7 @@ import nextImg from 'assets/images/next-dark.svg';
 import previousImg from 'assets/images/previous-dark.svg';
 import LiveIndicator from 'components/live-indicator';
 import Loading from 'components/loading';
+import ScrollToTopController from 'components/scroll-controller';
 import TagSet from 'components/tag-set';
 import { mungeExerciseData } from 'routes/exercises';
 import { getPastSessions, getUpcomingSessions } from 'routes/schedule';
@@ -106,6 +107,7 @@ const Session = () => {
       <TagSet label="Equipment" tags={equipmentIds} />
       <l.Div height={th.spacing.md} />
       <List columns={columns} header={`Exercises (${exercises.length})`} isLoading={false} items={items} showIndices />
+      <ScrollToTopController />
     </>
   );
 };

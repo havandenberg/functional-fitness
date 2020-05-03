@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { isEmpty } from 'ramda';
 import { Redirect } from 'react-router-dom';
+import ScrollToTopController from 'components/scroll-controller';
 import { useGlobalContext } from 'context/global';
 import b from 'ui/button';
 import i from 'ui/input';
@@ -27,35 +28,38 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <l.Centered my={th.spacing.lg}>
-        <l.Div>
-          <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.lg}>
-            Instructor Login
-          </ty.H2>
-          <ty.Label mb={th.spacing.sm}>Email</ty.Label>
-          <i.Default
-            autoFocus
-            mb={th.spacing.lg}
-            onChange={(e) => setEmail(e.target.value)}
-            type="text"
-            value={email}
-          />
-          <ty.Label mb={th.spacing.sm}>Password</ty.Label>
-          <i.Default
-            mb={th.spacing.lg}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            value={password}
-          />
-        </l.Div>
-        <b.Default bg={th.colors.brand.primary} p={th.spacing.sm} type="submit">
-          <ty.Label bold color={th.colors.white} fontSize={12}>
-            Login
-          </ty.Label>
-        </b.Default>
-      </l.Centered>
-    </form>
+    <>
+      <form onSubmit={handleLogin}>
+        <l.Centered my={th.spacing.lg}>
+          <l.Div>
+            <ty.H2 fontSize={th.fontSizes.h3} mb={th.spacing.lg}>
+              Instructor Login
+            </ty.H2>
+            <ty.Label mb={th.spacing.sm}>Email</ty.Label>
+            <i.Default
+              autoFocus
+              mb={th.spacing.lg}
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={email}
+            />
+            <ty.Label mb={th.spacing.sm}>Password</ty.Label>
+            <i.Default
+              mb={th.spacing.lg}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              value={password}
+            />
+          </l.Div>
+          <b.Default bg={th.colors.brand.primary} p={th.spacing.sm} type="submit">
+            <ty.Label bold color={th.colors.white} fontSize={12}>
+              Login
+            </ty.Label>
+          </b.Default>
+        </l.Centered>
+      </form>
+      <ScrollToTopController />
+    </>
   );
 };
 

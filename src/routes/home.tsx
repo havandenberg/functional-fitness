@@ -8,6 +8,7 @@ import resourcesImg from 'assets/images/resources.svg';
 import scheduleImg from 'assets/images/schedule.svg';
 import zoomImg from 'assets/images/zoom.png';
 import Loading from 'components/loading';
+import ScrollToTopController from 'components/scroll-controller';
 import { useGlobalContext } from 'context/global';
 import b from 'ui/button';
 import l from 'ui/layout';
@@ -94,6 +95,7 @@ const Home = () => {
         <Quadrant bdr={th.borders.input} src={exercisesImg} text="Exercises" to="/exercises" />
         <Quadrant src={resourcesImg} text="Fitness Resources" to="/resources" />
       </l.FlexBetween>
+      <ScrollToTopController />
     </>
   );
 };
