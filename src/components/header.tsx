@@ -25,18 +25,19 @@ export const Sticky = styled(l.Div)<{ root?: boolean }>(
 
 const Header = () => {
   const { pathname } = useLocation();
+  const root = pathname === '/';
   const [liveSessions] = api.useFetchLiveSessions();
   const activeLiveSessions = liveSessions && liveSessions.filter((liveSession) => liveSession.isLive);
   return (
-    <Sticky root={pathname === '/'}>
+    <Sticky root={root}>
       <Link type="area" to="/" width={th.sizes.fill}>
         <l.FlexColumn
           bdb={th.borders.input}
-          boxShadow={pathname === '/' ? `0 -6px 15px 0px ${th.colors.black}` : undefined}
-          py={th.spacing.md}
+          boxShadow={root ? `0 -6px 15px 0px ${th.colors.black}` : undefined}
+          py={root ? th.spacing.md : th.spacing.sm}
         >
-          <ty.H1>Functional Fitness</ty.H1>
-          <ty.Text>For All</ty.Text>
+          <ty.H1 fontSize={root ? undefined : th.fontSizes.h3}>Functional Fitness{root ? undefined : ' For All'}</ty.H1>
+          {root && <ty.Text fontSize={th.fontSizes.lg}>For All</ty.Text>}
         </l.FlexColumn>
       </Link>
       <Switch>
