@@ -90,7 +90,7 @@ const Home = () => {
           </>
         )}
       </l.Centered>
-      <l.FlexBetween flexWrap="wrap" bdb={th.borders.input} bdt={th.borders.input}>
+      <l.FlexBetween flexWrap="wrap" bdb={th.borders.input} bdt={th.borders.input} mb={th.spacing.xl}>
         <Quadrant bdb={th.borders.input} bdr={th.borders.input} src={infoImg} text="Getting Started" to="/start" />
         <Quadrant bdb={th.borders.input} src={scheduleImg} text="Session Schedule" to="/schedule" />
         <Quadrant bdr={th.borders.input} src={exercisesImg} text="Exercises" to="/exercises" />

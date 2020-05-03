@@ -186,12 +186,6 @@ const Primary = styled(Span)<DivProps>(
   divPropsSet,
 );
 
-const PageContent = styled(Div)({
-  [th.breakpointQueries.desktop]: {
-    maxWidth: 750,
-  },
-});
-
 export default {
   Anchor,
   AreaLink,
@@ -202,7 +196,6 @@ export default {
   FlexColumn,
   Centered,
   Grid,
-  PageContent,
   Primary,
   Img,
   Scroll,

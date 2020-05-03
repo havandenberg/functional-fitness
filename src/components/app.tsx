@@ -25,10 +25,8 @@ const Main = styled(l.FlexBetween)({
   margin: '0 auto',
   maxWidth: th.widths.maxPage,
   minHeight: '100vh',
-  [th.breakpointQueries.desktop]: {
-    borderLeft: th.borders.input,
-    borderRight: th.borders.input,
-  },
+  borderLeft: th.borders.input,
+  borderRight: th.borders.input,
 });
 
 const Page = styled(l.Div)({

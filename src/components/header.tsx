@@ -13,13 +13,15 @@ import ty from 'ui/typography';
 export const Sticky = styled(l.Div)<{ root?: boolean }>(
   {
     background: th.colors.background,
+    borderTop: th.borders.input,
+    margin: '0 auto',
     position: 'sticky',
     top: 0,
     width: th.sizes.fill,
     zIndex: 100,
   },
   ({ root }) => ({
-    boxShadow: root ? undefined : `0 -6px 15px 0px ${th.colors.black}`,
+    boxShadow: root ? undefined : `0 0px 5px 0px ${th.colors.black}`,
   }),
 );
 
@@ -33,7 +35,7 @@ const Header = () => {
       <Link type="area" to="/" width={th.sizes.fill}>
         <l.FlexColumn
           bdb={th.borders.input}
-          boxShadow={root ? `0 -6px 15px 0px ${th.colors.black}` : undefined}
+          boxShadow={root ? `0 0px 5px 0px ${th.colors.black}` : undefined}
           py={root ? th.spacing.md : th.spacing.sm}
         >
           <ty.H1 fontSize={root ? undefined : th.fontSizes.h3}>Functional Fitness{root ? undefined : ' For All'}</ty.H1>

@@ -58,7 +58,7 @@ export const spacing = {
 
 export const widths = {
   maxContent: '1024px',
-  maxPage: '1440px',
+  maxPage: '750px',
 };
 
 // Typography
@@ -109,7 +109,7 @@ export const breakpointQueries = {
 };
 
 export const transitions = {
-  default: 'all 0.3s ease',
+  default: 'all 0.2s ease',
 };
 
 export const scrollOptions = {
