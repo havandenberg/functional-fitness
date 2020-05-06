@@ -5,6 +5,7 @@ import maximizeImg from 'assets/images/maximize.svg';
 import Modal from 'components/modal';
 import l from 'ui/layout';
 import th from 'ui/theme';
+import { isMobile } from 'ui/utils';
 
 export const Icon = styled(l.Img)({
   background: th.colors.white,
@@ -26,7 +27,7 @@ const Maximize = ({ content, toggle }: { content: React.ReactNode; toggle: React
         <l.Div
           onClick={(e) => {
             e.stopPropagation();
-            if (document.body) {
+            if (document.body && !isMobile()) {
               disableBodyScroll(document.body);
             }
             show();
