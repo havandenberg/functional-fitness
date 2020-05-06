@@ -65,7 +65,7 @@ const List = ({ columns, header, isLoading, items, showIndices }: Props) => {
       )}
       <Grid>
         <l.Flex bdb={th.borders.input}>
-          {showIndices && <l.Div flexBasis={INDEX_BASIS + 4} />}
+          {showIndices && <l.Div flexBasis={INDEX_BASIS + 12} />}
           {columns.map((col) => (
             <l.Div {...col.styles} key={col.title} mb={th.spacing.tn} pl={th.spacing.sm}>
               <ty.Label flex={1}>{col.title}</ty.Label>

@@ -20,6 +20,14 @@ import { findItemsByIds, getAllTags } from 'utils/tags';
 
 const DateText = styled(ty.Text)<{ isPast?: boolean }>(({ isPast }) => ({ opacity: isPast ? 0.5 : 1 }));
 
+const NavButton = styled(l.Centered)({
+  ':hover': {
+    background: th.colors.brand.primaryHighlight,
+  },
+  height: th.sizes.md,
+  transition: th.transitions.default,
+});
+
 const Session = () => {
   const { id } = useParams();
   const [liveSessions, loading] = api.useFetchLiveSessions();
@@ -63,17 +71,19 @@ const Session = () => {
     <>
       <l.FlexBetween mt={th.spacing.lg}>
         <l.AreaLink flexBasis="10%" to={isFirst || !previousSession ? '/schedule' : `/sessions/${previousSession.id}`}>
-          <l.Centered height={th.sizes.md}>
+          <NavButton border={th.borders.input} borderLeft={0}>
             <l.Img src={previousImg} width={th.sizes.xs} />
-          </l.Centered>
+          </NavButton>
         </l.AreaLink>
-        <l.Scroll showScrollBar={false} width="80%">
+        <l.Scroll mx={th.spacing.sm} showScrollBar={false} width="80%">
           <ty.H2 center fontSize={th.fontSizes.h3} nowrap>
             {liveSession.name || name}
           </ty.H2>
         </l.Scroll>
         <l.AreaLink flexBasis="10%" to={isLast || !nextSession ? '#' : `/sessions/${nextSession.id}`}>
-          <l.Centered height={th.sizes.md}>{!isLast && <l.Img src={nextImg} width={th.sizes.xs} />}</l.Centered>
+          <NavButton border={!isLast ? th.borders.input : undefined} borderRight={0}>
+            {!isLast && <l.Img src={nextImg} width={th.sizes.xs} />}
+          </NavButton>
         </l.AreaLink>
       </l.FlexBetween>
       <l.Centered mb={th.spacing.lg}>
