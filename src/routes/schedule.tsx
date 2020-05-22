@@ -10,6 +10,8 @@ import l from 'ui/layout';
 import th from 'ui/theme';
 import ty from 'ui/typography';
 
+const MAX_ITEM_COUNT = 25;
+
 const LiveWrapper = styled(l.Div)({
   position: 'absolute',
   right: 22,
@@ -82,7 +84,7 @@ const Schedule = () => {
       const session = find(propEq('id', liveSession.sessionId), sessions);
       return session ? mungeLiveSessionData(liveSession, session) : undefined;
     }),
-  );
+  ).slice(0, MAX_ITEM_COUNT);
   const header = `Sessions ${loading ? '' : '(' + items.length + ')'}`;
 
   return (

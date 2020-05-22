@@ -3,7 +3,7 @@ import { find, isEmpty, propEq } from 'ramda';
 import { rrulestr } from 'rrule';
 import * as api from 'api';
 
-const MAX_RECURRENCES = 3;
+const MAX_RECURRENCES = 200;
 
 const GET_CAL_URL = (calID: string, key: string) =>
   `https://www.googleapis.com/calendar/v3/calendars/${calID}/events?fields=items(summary,id,location,start,end,recurrence,description)&key=${key}`;
